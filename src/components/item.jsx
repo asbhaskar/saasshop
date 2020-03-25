@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./item.css";
 
 class Item extends Component {
   renderTags() {
@@ -14,17 +15,25 @@ class Item extends Component {
 
   render() {
     return (
-      <div>
+      <div className="itemDiv">
         <img src={this.props.item.image} />
         <h4>{this.props.item.name}</h4>
-        <h4>${this.props.item.price}</h4>
-        <button onClick={() => this.props.onDecrement(this.props.item)}>
-          -
-        </button>
-        <span>{this.props.item.value}</span>
-        <button onClick={() => this.props.onIncrement(this.props.item)}>
-          +
-        </button>
+        <h5>${this.props.item.price}</h5>
+        <div>
+          <button
+            className="quantity"
+            onClick={() => this.props.onDecrement(this.props.item)}
+          >
+            -
+          </button>
+          <span style={{ marginRight: 10 }}>{this.props.item.value}</span>
+          <button
+            className="quantity"
+            onClick={() => this.props.onIncrement(this.props.item)}
+          >
+            +
+          </button>
+        </div>
       </div>
     );
   }

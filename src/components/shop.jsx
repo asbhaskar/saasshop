@@ -4,7 +4,7 @@ import Item from "./item";
 class Shop extends Component {
   render() {
     return (
-      <div>
+      <div class="row">
         {this.props.items.map(item => (
           <Item
             key={item.id}

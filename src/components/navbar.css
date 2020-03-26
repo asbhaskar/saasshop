@@ -1,0 +1,25 @@
+nav {
+  background-color: white;
+  height: 75px;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav img {
+  width: 90px;
+  margin-left: 20px;
+}
+
+nav h3 {
+  color: #de8abe;
+}
+
+.navbarSummary p {
+  margin-top: -10px;
+}
+
+.icon {
+  width: 30px;
+}

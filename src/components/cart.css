@@ -1,0 +1,34 @@
+.cartContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cartSummary {
+  background-color: white;
+  padding: 30px;
+  border-radius: 18px;
+  width: 65%;
+  margin-top: 20px;
+}
+
+.paymentBox {
+  background-color: white;
+  padding: 30px;
+  border-radius: 18px;
+  width: 30%;
+  margin-top: 20px;
+  font-size: 1vw;
+}
+
+.paymentMethod {
+  display: flex;
+  flex-direction: row;
+}
+
+label {
+  margin-right: 10px;
+}
+
+input {
+  width: 50%;
+}

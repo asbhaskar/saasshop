@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CartItem from "./CartItem";
+import "./cart.css";
 
 class Cart extends Component {
   state = {};
@@ -14,53 +15,76 @@ class Cart extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <h1>Your Shopping Cart</h1>
-        {this.props.items.map(item => (
-          <CartItem
-            key={item.id}
-            item={item}
-            onIncrement={this.props.onIncrement}
-            onDecrement={this.props.onDecrement}
-            onDelete={this.props.onDelete}
-          />
-        ))}
-        <div>
-          <p>
-            <strong>SUBTOTAL</strong> ${this.calculateTotal()}
-          </p>
-          <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name"></input>
-            <br></br>
-            <label for="email">(Berkeley) Email</label>
-            <input type="text" id="email" name="email"></input>
-            <br></br>
-            <label for="payment">Payment Method</label>
-            <label for="venmo">Venmo</label>
-            <input type="radio" id="venmo" name="payment" value="venmo"></input>
-            <label for="cash">Cash</label>
-            <input type="radio" id="cash" name="payment" value="cash"></input>
-            <label for="card">Card</label>
-            <input type="radio" id="card" name="payment" value="card"></input>
-            <br></br>
-            <label for="cardNumber">Card Number</label>
-            <input type="text" id="cardNumber" name="cardNumber"></input>
-            <br></br>
-            <label for="cardName">Name on Card</label>
-            <input type="text" id="cardName" name="cardName"></input>
-            <br></br>
-            <label for="expiration">Expiration Date</label>
-            <input type="text" id="expiration" name="expiration"></input>
-            <br></br>
-            <p>
-              If you selected Venmo, please Venmo ${this.calculateTotal()} to
-              @calsaas.
+        <div className="cartContainer">
+          <div className="cartSummary">
+            {this.props.items.map(item => (
+              <CartItem
+                key={item.id}
+                item={item}
+                onIncrement={this.props.onIncrement}
+                onDecrement={this.props.onDecrement}
+                onDelete={this.props.onDelete}
+              />
+            ))}
+          </div>
+          <div className="paymentBox">
+            <p style={{ textAlign: "right" }}>
+              <strong>SUBTOTAL</strong> ${this.calculateTotal()}
             </p>
-            <input type="submit" value="Submit"></input>
-          </form>
+            <form>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name"></input>
+              <br></br>
+              <label for="email">Email</label>
+              <input type="text" id="email" name="email"></input>
+              <br></br>
+              <div className="paymentMethod">
+                <label for="payment">Payment Method</label>
+                <input
+                  type="radio"
+                  id="venmo"
+                  name="payment"
+                  value="venmo"
+                ></input>
+                <label for="venmo">Venmo</label>
+
+                <input
+                  type="radio"
+                  id="cash"
+                  name="payment"
+                  value="cash"
+                ></input>
+                <label for="cash">Cash</label>
+
+                <input
+                  type="radio"
+                  id="card"
+                  name="payment"
+                  value="card"
+                ></input>
+                <label for="card">Card</label>
+                <br></br>
+              </div>
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" name="cardNumber"></input>
+              <br></br>
+              <label for="cardName">Name on Card</label>
+              <input type="text" id="cardName" name="cardName"></input>
+              <br></br>
+              <label for="expiration">Expiration Date</label>
+              <input type="text" id="expiration" name="expiration"></input>
+              <br></br>
+              <p>
+                If you selected Venmo, please Venmo ${this.calculateTotal()} to
+                @calsaas.
+              </p>
+              <input type="submit" value="Submit"></input>
+            </form>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

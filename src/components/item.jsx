@@ -15,7 +15,7 @@ class Item extends Component {
 
   render() {
     return (
-      <div className="itemDiv">
+      <div className="itemDiv col-lg-3 col-sm-6">
         <img src={this.props.item.image} />
         <h4>{this.props.item.name}</h4>
         <h5>${this.props.item.price}</h5>

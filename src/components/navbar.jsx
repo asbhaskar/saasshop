@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Logo from "../assets/images/logo.png";
+import CartIcon from "../assets/icons/supermarket.svg";
+import UserIcon from "../assets/icons/user.svg";
+import "./navbar.css";
 
 class NavBar extends Component {
   sumArray = (items, prop) => {
@@ -21,12 +24,17 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand" href="#">
-          <img style={{ width: 100 }} src={Logo} />
-          <span>Items {this.sumArray(this.props.items, "value")}</span>
-          <span>Subtotal {this.calculateTotal()}</span>
+      <nav>
+        <a href="#">
+          <img src={Logo} />
         </a>
+        <h3> MERCH SHOP </h3>
+        <div className="navbarSummary">
+          <p>Items {this.sumArray(this.props.items, "value")}</p>
+          <p>Subtotal ${this.calculateTotal()}</p>
+        </div>
+        <img className="icon" src={CartIcon} />
+        <img className="icon" src={UserIcon} />
       </nav>
     );
   }

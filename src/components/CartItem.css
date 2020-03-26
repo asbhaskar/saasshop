@@ -1,0 +1,24 @@
+.cartItemDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cartItemDiv p {
+  font-size: 2vw;
+}
+
+.cartItemDiv button {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  background-color: #addeff;
+  color: white;
+  border: none;
+  margin-right: 10px;
+}
+
+.cartItemDiv img {
+  width: 30%;
+  margin-right: 10px;
+}

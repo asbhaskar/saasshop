@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import "./CartItem.css";
 
 class CartItem extends Component {
   state = {};
   render() {
     return (
-      <div>
-        <img style={{ width: 200 }} src={this.props.item.image} />
-        <h4>{this.props.item.name}</h4>
+      <div className="cartItemDiv">
+        <img src={this.props.item.image} />
+        <p>{this.props.item.name}</p>
         <button onClick={() => this.props.onDecrement(this.props.item)}>
           -
         </button>
@@ -14,7 +15,7 @@ class CartItem extends Component {
         <button onClick={() => this.props.onIncrement(this.props.item)}>
           +
         </button>
-        <h4>${this.props.item.price}</h4>
+        <p>${this.props.item.price}</p>
         <button onClick={() => this.props.onDelete(this.props.item)}>X</button>
       </div>
     );

@@ -80,7 +80,7 @@ class Cart extends Component {
                 If you selected Venmo, please Venmo ${this.calculateTotal()} to
                 @calsaas.
               </p>
-              <input type="submit" value="Submit"></input>
+              <input className="submit" type="submit" value="Submit"></input>
             </form>
           </div>
         </div>

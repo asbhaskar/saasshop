@@ -25,16 +25,32 @@ class NavBar extends Component {
   render() {
     return (
       <nav>
-        <a href="#">
+        <a href="http://saas.berkeley.edu">
           <img src={Logo} />
         </a>
-        <h3> MERCH SHOP </h3>
-        <div className="navbarSummary">
-          <p>Items {this.sumArray(this.props.items, "value")}</p>
-          <p>Subtotal ${this.calculateTotal()}</p>
+        <h3>
+          <a href="#">MERCH SHOP</a>
+        </h3>
+        <div className="iconText">
+          <div className="navbarText">
+            <p>Items {this.sumArray(this.props.items, "value")}</p>
+            <p>Subtotal ${this.calculateTotal()}</p>
+          </div>
+          <a href="#">
+            <img className="icon" src={CartIcon} />
+          </a>
         </div>
-        <img className="icon" src={CartIcon} />
-        <img className="icon" src={UserIcon} />
+        <div className="iconText">
+          <div className="navbarText">
+            <p>
+              Hello, <strong>SAASie</strong>
+            </p>
+            <p>
+              <a href="#">Sign in</a>
+            </p>
+          </div>
+          <img className="icon" src={UserIcon} />
+        </div>
       </nav>
     );
   }

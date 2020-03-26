@@ -5,21 +5,49 @@ nav {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 20px;
 }
 
 nav img {
   width: 90px;
-  margin-left: 20px;
 }
 
-nav h3 {
+nav h3 a {
   color: #de8abe;
 }
 
-.navbarSummary p {
-  margin-top: -10px;
+nav h3 a:hover {
+  text-decoration: none;
+  color: #d38abe;
+}
+
+.iconText {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbarText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -5px;
+}
+
+.navbarText p {
+  margin-bottom: -5px;
+}
+
+.navbarText a {
+  color: black;
+  text-decoration: underline;
+}
+
+.navbarText a:hover {
+  color: #addeff;
+  transition: 0.2s;
 }
 
 .icon {
   width: 30px;
+  margin-left: 10px;
 }

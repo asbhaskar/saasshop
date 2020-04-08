@@ -59,6 +59,7 @@ export const auth = (payload, isSignup) => {
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data.localId);
+                //temporary shop link
                 axios.get( 'https://shop-9f1fc.firebaseio.com/' + response.data.localId + '/userData.json')
                     .then(res =>{
                         let firstname = res.data.firstname
@@ -83,6 +84,7 @@ export const auth = (payload, isSignup) => {
                     lastname:payload.lastname,
                     email: payload.email,
                 };
+                //temporary shop link
                 axios.put('https://shop-9f1fc.firebaseio.com/'+ response.data.localId +'/userData.json', userData).then(() => {
                     dispatch(authSuccess(response.data.idToken, response.data.localId, userData.firstname));
                     dispatch(checkAuthTimeout(response.data.expiresIn));

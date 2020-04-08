@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Logo from "../assets/images/logo.png";
 import CartIcon from "../assets/icons/supermarket.svg";
 import UserIcon from "../assets/icons/user.svg";
+import { HashLink as Link } from 'react-router-hash-link';
 import "./navbar.css";
 
 class NavBar extends Component {
@@ -13,7 +15,7 @@ class NavBar extends Component {
       return b[prop] == null ? a : a + b[prop];
     }, 0);
   };
-
+ 
   calculateTotal = () => {
     var total = 0;
     for (var i = 0; i < this.props.items.length; i++) {
@@ -42,12 +44,23 @@ class NavBar extends Component {
         </div>
         <div className="iconText">
           <div className="navbarText">
-            <p>
-              Hello, <strong>SAASie</strong>
-            </p>
-            <p>
-              <a href="#">Sign in</a>
-            </p>
+            {this.props.isAuth ?
+              <div>
+                <Link to="/">
+                  Hello, <strong>{this.props.firstname}</strong>
+                </Link>
+                <Link to="/logout">Logout</Link>
+              </div>
+              : <div>
+                  <p>
+                    Hello, <strong>SAASie</strong>
+                  </p>
+                  <Link to="/signin">Sign in</Link>
+                </div>}
+                  {/* <p>
+                  <a href="#">Sign in</a>
+                  </p> */}
+                
           </div>
           <img className="icon" src={UserIcon} />
         </div>
@@ -56,4 +69,12 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+      isAuthenticated: state.auth.token !== null,
+      userId: state.auth.userId,
+      firstname: state.auth.firstname
+  };
+};
+
+export default connect( mapStateToProps )( NavBar );

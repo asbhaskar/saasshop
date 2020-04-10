@@ -1,0 +1,15 @@
+.itemDiv img {
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.itemDiv {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  margin: 50px;
+  border-radius: 18px;
+}

@@ -1,0 +1,14 @@
+.cartItemDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cartItemDiv p {
+  font-size: 2vw;
+}
+
+.cartItemDiv img {
+  width: 30%;
+  margin-right: 10px;
+}

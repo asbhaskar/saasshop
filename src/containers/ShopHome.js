@@ -16,6 +16,7 @@ class ShopHome extends Component {
         name: "Ok Zoomer",
         price: 20,
         image: Zoomer,
+        type: "shirt",
       },
       {
         id: 2,
@@ -23,6 +24,7 @@ class ShopHome extends Component {
         name: "SAAS Logo",
         price: 2,
         image: Logo,
+        type: "sticker",
       },
     ],
   };

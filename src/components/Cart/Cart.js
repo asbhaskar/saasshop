@@ -13,6 +13,10 @@ class Cart extends Component {
     return total;
   };
 
+  onSubmit = () => {
+    alert("Pressed submit button");
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -80,7 +84,12 @@ class Cart extends Component {
                 If you selected Venmo, please Venmo ${this.calculateTotal()} to
                 @calsaas.
               </p>
-              <input className="submit" type="submit" value="Submit"></input>
+              <input
+                className="submit"
+                type="submit"
+                value="Submit"
+                onClick={this.onSubmit}
+              ></input>
             </form>
           </div>
         </div>

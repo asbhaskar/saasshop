@@ -31,16 +31,16 @@ class NavBar extends Component {
           <img src={Logo} />
         </a>
         <h3>
-          <a href="#">MERCH SHOP</a>
+          <Link to="/">MERCH SHOP</Link>
         </h3>
         <div className="iconText">
           <div className="navbarText">
             <p>Items {this.sumArray(this.props.items, "value")}</p>
             <p>Subtotal ${this.calculateTotal()}</p>
           </div>
-          <a href="#">
+          <Link to="/cart">
             <img className="icon" src={CartIcon} />
-          </a>
+          </Link>
         </div>
         <div className="iconText">
           <div className="navbarText">

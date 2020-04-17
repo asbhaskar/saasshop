@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
@@ -56,21 +57,30 @@ class ShopHome extends Component {
     return (
       <React.Fragment>
         <NavBar items={this.state.items.filter((i) => i.value > 0)} />
-        <main className="container">
-          <Shop
-            items={this.state.items}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-          />
-        </main>
-        <main className="container">
-          <Cart
-            items={this.state.items.filter((i) => i.value > 0)}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-            onDelete={this.handleDelete}
-          />
-        </main>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <Shop
+              {...props}
+              items={this.state.items}
+              onIncrement={this.handleIncrement}
+              onDecrement={this.handleDecrement}
+            />
+          )}
+        />
+        <Route
+          path="/cart"
+          render={(props) => (
+            <Cart
+              {...props}
+              items={this.state.items.filter((i) => i.value > 0)}
+              onIncrement={this.handleIncrement}
+              onDecrement={this.handleDecrement}
+              onDelete={this.handleDelete}
+            />
+          )}
+        />
       </React.Fragment>
     );
   }

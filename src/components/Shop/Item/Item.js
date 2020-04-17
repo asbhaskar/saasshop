@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./item.css";
+import "./Item.css";
 
 class Item extends Component {
   renderTags() {
     if (this.state.tags.length === 0) return <p>There are no tags!</p>;
     return (
       <ul>
-        {this.state.tags.map(tag => (
+        {this.state.tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>

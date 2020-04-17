@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import CartItem from "./CartItem";
-import "./cart.css";
+import CartItem from "./CartItem/CartItem";
+import "./Cart.css";
 
 class Cart extends Component {
   state = {};
@@ -13,13 +13,17 @@ class Cart extends Component {
     return total;
   };
 
+  onSubmit = () => {
+    alert("Pressed submit button");
+  };
+
   render() {
     return (
       <React.Fragment>
         <h1>Your Shopping Cart</h1>
         <div className="cartContainer">
           <div className="cartSummary">
-            {this.props.items.map(item => (
+            {this.props.items.map((item) => (
               <CartItem
                 key={item.id}
                 item={item}
@@ -80,7 +84,12 @@ class Cart extends Component {
                 If you selected Venmo, please Venmo ${this.calculateTotal()} to
                 @calsaas.
               </p>
-              <input className="submit" type="submit" value="Submit"></input>
+              <input
+                className="submit"
+                type="submit"
+                value="Submit"
+                onClick={this.onSubmit}
+              ></input>
             </form>
           </div>
         </div>

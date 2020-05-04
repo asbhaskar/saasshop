@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import CartItem from "./CartItem/CartItem.jsx";
 import "./Cart.css";
 
@@ -102,5 +103,11 @@ class Cart extends Component {
     );
   }
 }
+
+Cart.propTypes = {
+  items: PropTypes.object,
+  currentCart: PropTypes.object,
+  onChange: PropTypes.func,
+};
 
 export default Cart;

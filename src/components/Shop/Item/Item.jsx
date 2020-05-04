@@ -16,7 +16,7 @@ class Item extends PureComponent {
           <button className="quantity" onClick={() => onChange(itemId, -1)}>
             -
           </button>
-          <span style={{ marginRight: 10 }}>{itemQuantity}</span>
+          <span style={{ margin: 10 }}>{itemQuantity}</span>
           <button className="quantity" onClick={() => onChange(itemId, 1)}>
             +
           </button>

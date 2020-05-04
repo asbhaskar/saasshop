@@ -54,7 +54,11 @@ class ShopHome extends Component {
     const stock = this.state.data[itemId].stock;
     let updatedCount =
       currentCart + direction < 0 ? 0 : currentCart + direction;
-    updatedCount = updatedCount > stock ? stock : updatedCount;
+    if (updatedCount > stock) {
+      updatedCount = stock;
+      alert("Cannot add item to cart. Max stock of item reached.");
+    }
+    //updatedCount = updatedCount > stock ? stock : updatedCount;
     cart[itemId] = updatedCount;
     this.setState({ cart });
   };
@@ -105,10 +109,13 @@ class ShopHome extends Component {
           render={(props) => (
             <Cart
               {...props}
-              items={this.state.items.filter((i) => i.value > 0)}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
-              onDelete={this.handleDelete}
+              items={this.state.data}
+              //items={this.state.items.filter((i) => i.value > 0)}
+              //onIncrement={this.handleIncrement}
+              //onDecrement={this.handleDecrement}
+              currentCart={this.state.currentCart}
+              onChange={this.onChange}
+              // onDelete={this.handleDelete}
             />
           )}
         />

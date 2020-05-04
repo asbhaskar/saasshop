@@ -1,0 +1,12 @@
+.button {
+  border-radius: 20px;
+  background-color: #addeff;
+  color: white;
+  text-transform: uppercase;
+  float: right;
+  width: 10%;
+}
+
+.but {
+  padding: 2%;
+}

@@ -1,37 +1,47 @@
 import React, { Component } from "react";
-import CartItem from "./CartItem";
-import "./cart.css";
+import PropTypes from "prop-types";
+import CartItem from "./CartItem/CartItem.jsx";
+import "./Cart.css";
 
 class Cart extends Component {
   state = {};
 
-  calculateTotal = () => {
+  calculateTotal = (currentCart, items) => {
     var total = 0;
-    for (var i = 0; i < this.props.items.length; i++) {
-      total = total + this.props.items[i].price * this.props.items[i].value;
-    }
-    return total;
+
+    Object.keys(items).forEach((key) => {
+      total +=
+        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
+    });
+
+    return total.toFixed(2);
+  };
+
+  onSubmit = () => {
+    alert("Pressed submit button");
   };
 
   render() {
+    const { items, currentCart, onChange } = this.props;
     return (
       <React.Fragment>
         <h1>Your Shopping Cart</h1>
         <div className="cartContainer">
           <div className="cartSummary">
-            {this.props.items.map(item => (
+            {Object.keys(items).map((key) => (
               <CartItem
-                key={item.id}
-                item={item}
-                onIncrement={this.props.onIncrement}
-                onDecrement={this.props.onDecrement}
-                onDelete={this.props.onDelete}
+                key={key}
+                itemId={key}
+                quantity={currentCart[key]}
+                item={items[key]}
+                onChange={onChange}
               />
             ))}
           </div>
           <div className="paymentBox">
             <p style={{ textAlign: "right" }}>
-              <strong>SUBTOTAL</strong> ${this.calculateTotal()}
+              <strong>SUBTOTAL</strong> $
+              {this.calculateTotal(currentCart, items)}
             </p>
             <form>
               <label for="name">Name</label>
@@ -77,10 +87,15 @@ class Cart extends Component {
               <input type="text" id="expiration" name="expiration"></input>
               <br></br>
               <p>
-                If you selected Venmo, please Venmo ${this.calculateTotal()} to
-                @calsaas.
+                If you selected Venmo, please Venmo $
+                {this.calculateTotal(currentCart, items)} to @calsaas.
               </p>
-              <input className="submit" type="submit" value="Submit"></input>
+              <input
+                className="submit"
+                type="submit"
+                value="Submit"
+                onClick={this.onSubmit}
+              ></input>
             </form>
           </div>
         </div>
@@ -88,5 +103,11 @@ class Cart extends Component {
     );
   }
 }
+
+Cart.propTypes = {
+  items: PropTypes.object,
+  currentCart: PropTypes.object,
+  onChange: PropTypes.func,
+};
 
 export default Cart;

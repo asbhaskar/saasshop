@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .cartSummary {
   background-color: white;
@@ -40,4 +43,11 @@ input {
   color: white;
   text-transform: uppercase;
   float: right;
+}
+
+h1 {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px !important;
 }

@@ -6,6 +6,11 @@ import Cart from "../components/Cart/Cart";
 import "./ShopHome.css";
 import Zoomer from "../assets/images/shirts/zoomer.png";
 import Logo from "../assets/images/stickers/SAAS_logo.png";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { ElementsConsumer } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe("pk_live_qPDeXVkere8tUYfa89yJR5kJ00tQYe80LI");
 
 class ShopHome extends Component {
   state = {
@@ -57,7 +62,7 @@ class ShopHome extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Elements stripe={stripePromise}>
         <NavBar items={this.state.items.filter((i) => i.value > 0)} />
         <Route
           exact
@@ -74,16 +79,22 @@ class ShopHome extends Component {
         <Route
           path="/cart"
           render={(props) => (
-            <Cart
-              {...props}
-              items={this.state.items.filter((i) => i.value > 0)}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
-              onDelete={this.handleDelete}
-            />
+            <ElementsConsumer>
+              {({ stripe, elements }) => (
+                <Cart
+                  {...props}
+                  items={this.state.items.filter((i) => i.value > 0)}
+                  onIncrement={this.handleIncrement}
+                  onDecrement={this.handleDecrement}
+                  onDelete={this.handleDelete}
+                  stripe={this.stripe}
+                  elements={this.elements}
+                />
+              )}
+            </ElementsConsumer>
           )}
         />
-      </React.Fragment>
+      </Elements>
     );
   }
 }

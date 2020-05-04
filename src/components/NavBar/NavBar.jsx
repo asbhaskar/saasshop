@@ -16,6 +16,27 @@ class NavBar extends Component {
     }, 0);
   };
 
+  calculateNumItems = (currentCart, items) => {
+    var total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total += currentCart[key] ? currentCart[key] : 0;
+    });
+
+    return total;
+  };
+
+  calculateTotalPrice = (currentCart, items) => {
+    var total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total +=
+        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
+    });
+
+    return total.toFixed(2);
+  };
+
   calculateTotal = () => {
     var total = 0;
     for (var i = 0; i < this.props.items.length; i++) {

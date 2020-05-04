@@ -6,6 +6,7 @@ import Cart from "../components/Cart/Cart";
 import "./ShopHome.css";
 import Zoomer from "../assets/images/shirts/zoomer.png";
 import Logo from "../assets/images/stickers/SAAS_logo.png";
+import firebase from "../firebase/firebase";
 
 class ShopHome extends Component {
   state = {
@@ -13,7 +14,7 @@ class ShopHome extends Component {
       {
         id: 1,
         value: 0,
-        name: "Ok Zoomer",
+        name: "DOGDOGDOG",
         price: 20,
         image: Zoomer,
       },
@@ -25,6 +26,37 @@ class ShopHome extends Component {
         image: Logo,
       },
     ],
+    data: {},
+    currentCart: {},
+  };
+
+  componentWillMount() {
+    this.pullShopItems();
+  }
+
+  pullShopItems = () => {
+    firebase
+      .firestore()
+      .collection("inventory")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((item) => {
+          const data = this.state.data;
+          data[item.id] = item.data();
+          this.setState({ data });
+        });
+      });
+  };
+
+  onChange = (itemId, direction) => {
+    const cart = this.state.currentCart;
+    const currentCart = cart[itemId] ? cart[itemId] : 0;
+    const stock = this.state.data[itemId].stock;
+    let updatedCount =
+      currentCart + direction < 0 ? 0 : currentCart + direction;
+    updatedCount = updatedCount > stock ? stock : updatedCount;
+    cart[itemId] = updatedCount;
+    this.setState({ cart });
   };
 
   handleIncrement = (item) => {
@@ -60,12 +92,11 @@ class ShopHome extends Component {
         <Route
           exact
           path="/"
-          render={(props) => (
+          render={() => (
             <Shop
-              {...props}
-              items={this.state.items}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
+              items={this.state.data}
+              onChange={this.onChange}
+              currentCart={this.state.currentCart}
             />
           )}
         />

@@ -9,6 +9,7 @@ import Logo from "../assets/images/stickers/SAAS_logo.png";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { ElementsConsumer } from "@stripe/react-stripe-js";
+import firebase from "../firebase/firebase";
 
 const stripePromise = loadStripe("pk_live_qPDeXVkere8tUYfa89yJR5kJ00tQYe80LI");
 
@@ -18,7 +19,7 @@ class ShopHome extends Component {
       {
         id: 1,
         value: 0,
-        name: "Ok Zoomer",
+        name: "DOGDOGDOG",
         price: 20,
         image: Zoomer,
         type: "shirt",
@@ -32,6 +33,41 @@ class ShopHome extends Component {
         type: "sticker",
       },
     ],
+    data: {},
+    currentCart: {},
+  };
+
+  componentWillMount() {
+    this.pullShopItems();
+  }
+
+  pullShopItems = () => {
+    firebase
+      .firestore()
+      .collection("inventory")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((item) => {
+          const data = this.state.data;
+          data[item.id] = item.data();
+          this.setState({ data });
+        });
+      });
+  };
+
+  onChange = (itemId, direction) => {
+    const cart = this.state.currentCart;
+    const currentCart = cart[itemId] ? cart[itemId] : 0;
+    const stock = this.state.data[itemId].stock;
+    let updatedCount =
+      currentCart + direction < 0 ? 0 : currentCart + direction;
+    if (updatedCount > stock) {
+      updatedCount = stock;
+      alert("Cannot add item to cart. Max stock of item reached.");
+    }
+    //updatedCount = updatedCount > stock ? stock : updatedCount;
+    cart[itemId] = updatedCount;
+    this.setState({ cart });
   };
 
   handleIncrement = (item) => {
@@ -67,12 +103,11 @@ class ShopHome extends Component {
         <Route
           exact
           path="/"
-          render={(props) => (
+          render={() => (
             <Shop
-              {...props}
-              items={this.state.items}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
+              items={this.state.data}
+              onChange={this.onChange}
+              currentCart={this.state.currentCart}
             />
           )}
         />
@@ -83,10 +118,9 @@ class ShopHome extends Component {
               {({ stripe, elements }) => (
                 <Cart
                   {...props}
-                  items={this.state.items.filter((i) => i.value > 0)}
-                  onIncrement={this.handleIncrement}
-                  onDecrement={this.handleDecrement}
-                  onDelete={this.handleDelete}
+                  items={this.state.data}
+                  currentCart={this.state.CurrentCart}
+                  onChange={this.onChange}
                   stripe={this.stripe}
                   elements={this.elements}
                 />

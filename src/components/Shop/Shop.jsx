@@ -9,8 +9,11 @@ class Shop extends Component {
     x = document.getElementsByClassName("itemDiv");
     if (c == "all") c = "";
     for (i = 0; i < x.length; i++) {
-      this.removeClass(x[i], "show");
-      if (x[i].className.indexOf(c) > -1) this.addClass(x[i], "show");
+      if (x[i].className.indexOf(c) > -1) {
+        this.removeClass(x[i], "hide");
+      } else {
+        this.addClass(x[i], "hide");
+      }
     }
   };
 
@@ -41,34 +44,60 @@ class Shop extends Component {
     const { items, currentCart } = this.props;
     return (
       <React.Fragment>
-        <div class="sidebar">
-          <h2>Filter by</h2>
-          <div>
-            <h3>Categories:</h3>
-            <button
-              class="btn active"
-              onClick={() => this.filterSelection("all")}
-            >
-              Show All
-            </button>
-            <button class="btn" onClick={() => this.filterSelection("shirt")}>
-              Shirts
-            </button>
-            <button class="btn" onClick={() => this.filterSelection("sticker")}>
-              Stickers
-            </button>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2">
+              <h3>Filter by</h3>
+              <div>
+                <h4>Categories:</h4>
+                <form className="filter">
+                  <div className="filterOption">
+                    <input
+                      type="radio"
+                      id="all"
+                      name="category"
+                      value="all"
+                      onClick={() => this.filterSelection("all")}
+                    ></input>
+                    <label for="all">Show All</label>
+                  </div>
+                  <div className="filterOption">
+                    <input
+                      type="radio"
+                      id="shirts"
+                      name="payment"
+                      value="shirts"
+                      onClick={() => this.filterSelection("shirt")}
+                    ></input>
+                    <label for="stickers">Shirts</label>
+                  </div>
+                  <div className="filterOption">
+                    <input
+                      type="radio"
+                      id="stickers"
+                      name="payment"
+                      value="stickers"
+                      onClick={() => this.filterSelection("sticker")}
+                    ></input>
+                    <label for="stickers">Stickers</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-9 offset-1">
+              <div class="row">
+                {Object.keys(items).map((key) => (
+                  <Item
+                    key={key}
+                    itemId={key}
+                    quantity={currentCart[key]}
+                    item={items[key]}
+                    onChange={this.props.onChange}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          {Object.keys(items).map((key) => (
-            <Item
-              key={key}
-              itemId={key}
-              quantity={currentCart[key]}
-              item={items[key]}
-              onChange={this.props.onChange}
-            />
-          ))}
         </div>
       </React.Fragment>
     );

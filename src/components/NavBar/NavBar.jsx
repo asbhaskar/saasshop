@@ -7,15 +7,6 @@ import { HashLink as Link } from "react-router-hash-link";
 import "./NavBar.css";
 
 class NavBar extends Component {
-  sumArray = (items, prop) => {
-    if (items == null) {
-      return 0;
-    }
-    return items.reduce(function (a, b) {
-      return b[prop] == null ? a : a + b[prop];
-    }, 0);
-  };
-
   calculateNumItems = (currentCart, items) => {
     var total = 0;
 
@@ -37,15 +28,9 @@ class NavBar extends Component {
     return total.toFixed(2);
   };
 
-  calculateTotal = () => {
-    var total = 0;
-    for (var i = 0; i < this.props.items.length; i++) {
-      total = total + this.props.items[i].price * this.props.items[i].value;
-    }
-    return total;
-  };
-
   render() {
+    const { items, currentCart } = this.props;
+    // being passed down correctly, function not working
     return (
       <nav>
         <a href="http://saas.berkeley.edu">
@@ -56,8 +41,8 @@ class NavBar extends Component {
         </h3>
         <div className="iconText">
           <div className="navbarText">
-            <p>Items {this.sumArray(this.props.items, "value")}</p>
-            <p>Subtotal ${this.calculateTotal()}</p>
+            <p>Items {this.calculateNumItems(currentCart, items)}</p>
+            <p>Subtotal ${this.calculateTotalPrice(currentCart, items)}</p>
           </div>
           <Link to="/cart">
             <img className="icon" src={CartIcon} />

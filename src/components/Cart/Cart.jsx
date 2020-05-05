@@ -7,7 +7,7 @@ class Cart extends Component {
   state = {};
 
   calculateTotal = (currentCart, items) => {
-    var total = 0;
+    let total = 0;
 
     Object.keys(items).forEach((key) => {
       total +=

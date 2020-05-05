@@ -45,6 +45,28 @@ class ShopHome extends Component {
     this.setState({ cart });
   };
 
+  calculateNumItems = (currentCart, items) => {
+    console.log(currentCart);
+    let total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total += currentCart[key] ? currentCart[key] : 0;
+    });
+
+    return total;
+  };
+
+  calculateTotal = (currentCart, items) => {
+    let total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total +=
+        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
+    });
+
+    return total.toFixed(2);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -52,6 +74,8 @@ class ShopHome extends Component {
           items={this.state.data}
           onChange={this.onChange}
           currentCart={this.state.currentCart}
+          calculateTotal={this.calculateTotal}
+          calculateNumItems={this.calculateNumItems}
         />
         <Route
           exact
@@ -72,6 +96,8 @@ class ShopHome extends Component {
               items={this.state.data}
               currentCart={this.state.currentCart}
               onChange={this.onChange}
+              calculateTotal={this.calculateTotal}
+              calculateNumItems={this.calculateNumItems}
             />
           )}
         />

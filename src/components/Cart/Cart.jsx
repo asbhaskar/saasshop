@@ -6,7 +6,18 @@ import "./Cart.css";
 class Cart extends Component {
   state = {};
 
-  calculateTotal = (currentCart, items) => {
+  calculateNumItems = (currentCart, items) => {
+    console.log(currentCart);
+    let total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total += currentCart[key] ? currentCart[key] : 0;
+    });
+
+    return total;
+  };
+
+  calculateTotalPrice = (currentCart, items) => {
     let total = 0;
 
     Object.keys(items).forEach((key) => {
@@ -15,6 +26,22 @@ class Cart extends Component {
     });
 
     return total.toFixed(2);
+  };
+
+  renderItems = (items, currentCart, onChange) => {
+    if (this.calculateNumItems(currentCart, items) === 0) {
+      return <p>Your cart is empty!</p>;
+    } else {
+      return Object.keys(items).map((key) => (
+        <CartItem
+          key={key}
+          itemId={key}
+          quantity={currentCart[key]}
+          item={items[key]}
+          onChange={onChange}
+        />
+      ));
+    }
   };
 
   onSubmit = () => {
@@ -29,20 +56,12 @@ class Cart extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              {Object.keys(items).map((key) => (
-                <CartItem
-                  key={key}
-                  itemId={key}
-                  quantity={currentCart[key]}
-                  item={items[key]}
-                  onChange={onChange}
-                />
-              ))}
+              {this.renderItems(items, currentCart, onChange)}
             </div>
             <div className="col-lg-5 offset-1">
               <p style={{ textAlign: "right" }}>
                 <strong>SUBTOTAL</strong> $
-                {this.calculateTotal(currentCart, items)}
+                {this.calculateTotalPrice(currentCart, items)}
               </p>
               <form>
                 <label htmlFor="name">Name</label>
@@ -89,7 +108,7 @@ class Cart extends Component {
                 <br></br>
                 <p>
                   If you selected Venmo, please Venmo $
-                  {this.calculateTotal(currentCart, items)} to @calsaas.
+                  {this.calculateTotalPrice(currentCart, items)} to @calsaas.
                 </p>
                 <input
                   className="submit"

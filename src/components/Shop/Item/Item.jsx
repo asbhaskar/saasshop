@@ -8,7 +8,7 @@ class Item extends PureComponent {
     const { description, image_url, sales_price } = item;
     const itemQuantity = quantity ? quantity : 0;
     return (
-      <div className={"itemDiv col-lg-3 col-sm-6" + this.props.item.category}>
+      <div className={"itemDiv show col-lg-3 col-sm-6" + this.props.item.category}>
         <img src={image_url} />
         <h4>{description}</h4>
         <h5>${sales_price}</h5>

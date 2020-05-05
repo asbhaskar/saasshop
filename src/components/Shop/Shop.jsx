@@ -4,6 +4,7 @@ import Item from "./Item/Item.jsx";
 import "./Shop.css";
 
 class Shop extends Component {
+
   filterSelection = (c) => {
     var x, i;
     x = document.getElementsByClassName("itemDiv");

@@ -10,27 +10,11 @@ import firebase from "../firebase/firebase";
 
 class ShopHome extends Component {
   state = {
-    items: [
-      {
-        id: 1,
-        value: 0,
-        name: "DOGDOGDOG",
-        price: 20,
-        image: Zoomer,
-      },
-      {
-        id: 2,
-        value: 0,
-        name: "SAAS Logo",
-        price: 2,
-        image: Logo,
-      },
-    ],
     data: {},
     currentCart: {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.pullShopItems();
   }
 

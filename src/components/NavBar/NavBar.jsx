@@ -13,6 +13,11 @@ class NavBar extends Component {
     currentCart: this.props.currentCart,
     items: this.props.items
   }
+
+  // componentDidUpdate(){
+  //   console.log("update")
+  //   console.log(this.props)
+  // }
   
   calculateNumItems = (currentCart, items) => {
     console.log(currentCart);
@@ -51,7 +56,7 @@ class NavBar extends Component {
         </h3>
         <div className="iconText">
           <div className="navbarText">
-            <p>Items {this.state.total}</p>
+            <p>Items {this.calculateNumItems(currentCart, items)}</p>
             <p>Subtotal ${this.calculateTotalPrice(currentCart, items)}</p>
           </div>
           <Link to="/cart">

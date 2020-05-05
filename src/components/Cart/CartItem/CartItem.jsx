@@ -8,12 +8,12 @@ class CartItem extends Component {
   render() {
     const { itemId, onChange, item, quantity } = this.props;
     const { description, image_url, sales_price } = item;
-    if (!quantity || quantity == 0) {
+    if (!quantity || quantity === 0) {
       return null;
     }
     return (
       <div className="cartItemDiv">
-        <img src={image_url} />
+        <img src={image_url} alt="cart"/>
         <span>{description}</span>
         <button onClick={() => onChange(itemId, -1)}>-</button>
         <span>{quantity}</span>

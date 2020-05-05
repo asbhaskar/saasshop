@@ -8,6 +8,7 @@ import "./NavBar.css";
 
 class NavBar extends Component {
   calculateNumItems = (currentCart, items) => {
+    console.log(currentCart)
     var total = 0;
 
     Object.keys(items).forEach((key) => {
@@ -34,7 +35,7 @@ class NavBar extends Component {
     return (
       <nav>
         <a href="http://saas.berkeley.edu">
-          <img src={Logo} />
+          <img src={Logo} alt="saas_logo"/>
         </a>
         <h3>
           <Link to="/">MERCH SHOP</Link>
@@ -45,7 +46,7 @@ class NavBar extends Component {
             <p>Subtotal ${this.calculateTotalPrice(currentCart, items)}</p>
           </div>
           <Link to="/cart">
-            <img className="icon" src={CartIcon} />
+            <img className="icon" src={CartIcon} alt="cart_icon"/>
           </Link>
         </div>
         <div className="iconText">
@@ -69,7 +70,7 @@ class NavBar extends Component {
                   <a href="#">Sign in</a>
                   </p> */}
           </div>
-          <img className="icon" src={UserIcon} />
+          <img className="icon" src={UserIcon} alt="user_icon"/>
         </div>
       </nav>
     );

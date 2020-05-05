@@ -7,7 +7,7 @@ class Shop extends Component {
   filterSelection = (c) => {
     var x, i;
     x = document.getElementsByClassName("itemDiv");
-    if (c == "all") c = "";
+    if (c === "all") c = "";
     for (i = 0; i < x.length; i++) {
       if (x[i].className.indexOf(c) > -1) {
         this.removeClass(x[i], "hide");
@@ -22,7 +22,7 @@ class Shop extends Component {
     arr1 = element.className.split(" ");
     arr2 = name.split(" ");
     for (i = 0; i < arr2.length; i++) {
-      if (arr1.indexOf(arr2[i]) == -1) {
+      if (arr1.indexOf(arr2[i]) === -1) {
         element.className += " " + arr2[i];
       }
     }
@@ -44,9 +44,9 @@ class Shop extends Component {
     const { items, currentCart } = this.props;
     return (
       <React.Fragment>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-2">
               <h3>Filter by</h3>
               <div>
                 <h4>Categories:</h4>
@@ -84,8 +84,8 @@ class Shop extends Component {
                 </form>
               </div>
             </div>
-            <div class="col-lg-9 offset-1">
-              <div class="row">
+            <div className="col-lg-9 offset-1">
+              <div className="row">
                 {Object.keys(items).map((key) => (
                   <Item
                     key={key}

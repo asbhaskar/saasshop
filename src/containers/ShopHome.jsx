@@ -77,7 +77,7 @@ class ShopHome extends Component {
         <NavBar
           items={this.state.data}
           onChange={this.onChange}
-          currentCart={this.state.currentCart['0ol7jZ1IcRMKTvgxiigb']}
+          currentCart={this.state.currentCart}
         />
         <Route
           exact

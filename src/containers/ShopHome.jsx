@@ -74,16 +74,10 @@ class ShopHome extends Component {
   render() {
     return (
       <React.Fragment>
-        <Route
-          path="/"
-          render={(props) =>(
-            <NavBar
-            {...props}
-              items={this.state.data}
-              onChange={this.onChange}
-              currentCart={this.state.currentCart}
-            />
-          )}
+        <NavBar
+          items={this.state.data}
+          onChange={this.onChange}
+          currentCart={this.state.currentCart['0ol7jZ1IcRMKTvgxiigb']}
         />
         <Route
           exact

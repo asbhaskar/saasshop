@@ -92,7 +92,11 @@ class ShopHome extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar items={this.state.items.filter((i) => i.value > 0)} />
+        <NavBar
+          items={this.state.data}
+          onChange={this.onChange}
+          currentCart={this.state.currentCart}
+        />
         <Route
           exact
           path="/"
@@ -110,12 +114,8 @@ class ShopHome extends Component {
             <Cart
               {...props}
               items={this.state.data}
-              //items={this.state.items.filter((i) => i.value > 0)}
-              //onIncrement={this.handleIncrement}
-              //onDecrement={this.handleDecrement}
               currentCart={this.state.currentCart}
               onChange={this.onChange}
-              // onDelete={this.handleDelete}
             />
           )}
         />

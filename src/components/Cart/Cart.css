@@ -1,26 +1,9 @@
-.cartContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.cartSummary {
+.col-lg-6,
+.col-lg-5 {
   background-color: white;
   padding: 30px;
   border-radius: 18px;
-  width: 65%;
   margin-top: 20px;
-}
-
-.paymentBox {
-  background-color: white;
-  padding: 30px;
-  border-radius: 18px;
-  width: 30%;
-  margin-top: 20px;
-  font-size: 1vw;
 }
 
 .paymentMethod {

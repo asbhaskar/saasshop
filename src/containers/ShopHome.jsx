@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
 import "./ShopHome.css";
-import Zoomer from "../assets/images/shirts/zoomer.png";
-import Logo from "../assets/images/stickers/SAAS_logo.png";
 import firebase from "../firebase/firebase";
 
 class ShopHome extends Component {

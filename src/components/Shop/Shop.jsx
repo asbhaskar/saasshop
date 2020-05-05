@@ -6,7 +6,7 @@ import "./Shop.css";
 class Shop extends Component {
 
   filterSelection = (c) => {
-    var x, i;
+    let x, i;
     x = document.getElementsByClassName("itemDiv");
     if (c === "all") c = "";
     for (i = 0; i < x.length; i++) {
@@ -19,7 +19,7 @@ class Shop extends Component {
   };
 
   addClass = (element, name) => {
-    var i, arr1, arr2;
+    let i, arr1, arr2;
     arr1 = element.className.split(" ");
     arr2 = name.split(" ");
     for (i = 0; i < arr2.length; i++) {
@@ -30,7 +30,7 @@ class Shop extends Component {
   };
 
   removeClass = (element, name) => {
-    var i, arr1, arr2;
+    let i, arr1, arr2;
     arr1 = element.className.split(" ");
     arr2 = name.split(" ");
     for (i = 0; i < arr2.length; i++) {
@@ -60,7 +60,7 @@ class Shop extends Component {
                       value="all"
                       onClick={() => this.filterSelection("all")}
                     ></input>
-                    <label for="all">Show All</label>
+                    <label htmlFor="all">Show All</label>
                   </div>
                   <div className="filterOption">
                     <input
@@ -70,7 +70,7 @@ class Shop extends Component {
                       value="shirts"
                       onClick={() => this.filterSelection("shirt")}
                     ></input>
-                    <label for="stickers">Shirts</label>
+                    <label htmlFor="stickers">Shirts</label>
                   </div>
                   <div className="filterOption">
                     <input
@@ -80,7 +80,7 @@ class Shop extends Component {
                       value="stickers"
                       onClick={() => this.filterSelection("sticker")}
                     ></input>
-                    <label for="stickers">Stickers</label>
+                    <label htmlFor="stickers">Stickers</label>
                   </div>
                 </form>
               </div>

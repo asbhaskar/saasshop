@@ -33,7 +33,7 @@ class Cart extends Component {
     return total.toFixed(2);
   };
 
-  // Function to display the items in cart
+  // Function to display items in cart before submit
   renderItems = (items, currentCart, onChange) => {
     if (this.calculateNumItems(currentCart, items) === 0) {
       return <p>Your cart is empty!</p>;
@@ -50,6 +50,7 @@ class Cart extends Component {
     }
   };
 
+  // Function to display items in cart after submit
   renderItemsSummary = (items, currentCart, onChange) => {
     if (this.calculateNumItems(currentCart, items) === 0) {
       return <p>Your cart is empty!</p>;
@@ -69,16 +70,25 @@ class Cart extends Component {
   // Listen for form submit
   submitForm = (event) => {
     event.preventDefault();
-    // Get values
-    //TODO: figure out how to get the selected radio button
-    //TODO: don't save if cart is empty??
+
+    // Do not save if cart is empty
+    const { items, currentCart } = this.props;
+    if (this.calculateNumItems(currentCart, items) === 0) {
+      document.querySelector("#emptyCart").style.display = "block";
+      setTimeout(() => {
+        document.querySelector("#emptyCart").style.display = "none";
+      }, 3000);
+      return;
+    }
+
+    // Get form values
     let name = this.getInputVal("name");
     let email = this.getInputVal("email");
-    let venmo = this.getInputVal("venmo");
-    let card = this.getInputVal("card");
-    const { items, currentCart } = this.props;
+    let venmo = document.getElementById("venmo").checked;
+    let payment = venmo ? "venmo" : "card";
 
-    this.saveOrder(name, email, items, currentCart);
+    // Save order and show summary
+    this.saveOrder(name, email, payment, items, currentCart);
     this.showAlert();
   };
 
@@ -97,23 +107,22 @@ class Cart extends Component {
   };
 
   // Save order to firebase
-  saveOrder = (name, email, items, currentCart) => {
-    // TODO: figure out how to work with radio buttons
-    // TODO: add date of order
+  saveOrder = (name, email, payment, items, currentCart) => {
     this.state.ordersRef.add({
       name: name,
       email: email,
+      date: new Date(),
+      payment_method: payment,
       items: currentCart,
       total: this.calculateTotalPrice(currentCart, items),
     });
+    //TODO: update on_order in inventory?
   };
 
-  // Show alert
+  // Show thank you + order summary page after submit
   showAlert = () => {
     document.querySelector(".alert").style.display = "block";
     document.querySelector(".container").style.display = "none";
-    //TODO: change background color to white
-    document.querySelector("body").style.backgroundColor = "white";
   };
 
   render() {
@@ -133,10 +142,10 @@ class Cart extends Component {
               </p>
               <form id="paymentForm">
                 <label htmlFor="name">Name</label>
-                <input type="text" id="name" name="name"></input>
+                <input type="text" id="name" name="name" required></input>
                 <br></br>
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email"></input>
+                <input type="email" id="email" name="email" required></input>
                 <br></br>
                 <div className="paymentMethod">
                   <label htmlFor="payment">Payment Method</label>
@@ -165,6 +174,10 @@ class Cart extends Component {
                 <button className="submitButton" type="submit">
                   Submit
                 </button>
+                <p id="emptyCart">
+                  Your cart is empty! Please add some items to your cart before
+                  submitting.
+                </p>
               </form>
             </div>
           </div>
@@ -180,7 +193,7 @@ class Cart extends Component {
               {this.renderItemsSummary(items, currentCart, onChange)}
             </div>
             <div className="col-lg-5 offset-1">
-              <h1> Thank you! </h1>
+              <h1 style={{ color: "#ADDEFF" }}>Thank you!</h1>
               <p>
                 Your order has been received! We will send you a confirmation
                 email, and you will receive another email when your order is

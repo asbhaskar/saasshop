@@ -41,3 +41,7 @@ h1 {
   padding: 10px;
   display: none;
 }
+
+#emptyCart {
+  display: none;
+}

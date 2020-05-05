@@ -4,6 +4,14 @@
 
 .col-lg-2 {
   margin-top: 30px;
+  border-right: 1px solid #000000;
+  height: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .col-lg-2 {
+    border-right: none;
+  }
 }
 
 .filter {

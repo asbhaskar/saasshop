@@ -45,32 +45,6 @@ class ShopHome extends Component {
     this.setState({ cart });
   };
 
-  handleIncrement = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    items[index].value++;
-    this.setState({ items });
-  };
-
-  handleDecrement = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    if (items[index].value > 0) {
-      items[index].value--;
-    }
-    this.setState({ items });
-  };
-
-  handleDelete = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    items[index].value = 0;
-    this.setState({ items });
-  };
-
   render() {
     return (
       <React.Fragment>

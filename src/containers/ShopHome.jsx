@@ -41,6 +41,7 @@ class ShopHome extends Component {
       alert("Cannot add item to cart. Max stock of item reached.");
     }
     //updatedCount = updatedCount > stock ? stock : updatedCount;
+    // TODO: if updatedCount is 0, delete the item from cart
     cart[itemId] = updatedCount;
     this.setState({ cart });
   };

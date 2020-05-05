@@ -20,12 +20,13 @@ input {
   border-color: #addeff;
 }
 
-.submit {
-  border-radius: 20px;
+.submitButton {
+  border-radius: 18px !important;
   background-color: #addeff;
   color: white;
   text-transform: uppercase;
   float: right;
+  width: 100px;
 }
 
 h1 {
@@ -33,4 +34,10 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px !important;
+}
+
+.alert {
+  text-align: center;
+  padding: 10px;
+  display: none;
 }

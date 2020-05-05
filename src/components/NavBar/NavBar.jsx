@@ -7,6 +7,13 @@ import { HashLink as Link } from "react-router-hash-link";
 import "./NavBar.css";
 
 class NavBar extends Component {
+  state={
+    total: 0,
+    subtotal: 0,
+    currentCart: this.props.currentCart,
+    items: this.props.items
+  }
+  
   calculateNumItems = (currentCart, items) => {
     console.log(currentCart);
     let total = 0;
@@ -31,6 +38,8 @@ class NavBar extends Component {
 
   render() {
     const { items, currentCart } = this.props;
+    console.log(currentCart)
+
     // being passed down correctly, function not working
     return (
       <nav>
@@ -42,7 +51,7 @@ class NavBar extends Component {
         </h3>
         <div className="iconText">
           <div className="navbarText">
-            <p>Items {this.calculateNumItems(currentCart, items)}</p>
+            <p>Items {this.state.total}</p>
             <p>Subtotal ${this.calculateTotalPrice(currentCart, items)}</p>
           </div>
           <Link to="/cart">

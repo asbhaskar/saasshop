@@ -59,7 +59,7 @@ class Shop extends Component {
                       value="all"
                       onClick={() => this.filterSelection("all")}
                     ></input>
-                    <label for="all">Show All</label>
+                    <label htmlFor="all">Show All</label>
                   </div>
                   <div className="filterOption">
                     <input
@@ -69,7 +69,7 @@ class Shop extends Component {
                       value="shirts"
                       onClick={() => this.filterSelection("shirt")}
                     ></input>
-                    <label for="stickers">Shirts</label>
+                    <label htmlFor="stickers">Shirts</label>
                   </div>
                   <div className="filterOption">
                     <input
@@ -79,7 +79,7 @@ class Shop extends Component {
                       value="stickers"
                       onClick={() => this.filterSelection("sticker")}
                     ></input>
-                    <label for="stickers">Stickers</label>
+                    <label htmlFor="stickers">Stickers</label>
                   </div>
                 </form>
               </div>

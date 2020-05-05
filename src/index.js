@@ -5,7 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { Provider, Connect } from "react-redux";
+import { Provider } from "react-redux";
 import authReducer from "./store/reducers/auth";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";

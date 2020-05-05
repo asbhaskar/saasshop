@@ -45,21 +45,21 @@ class Cart extends Component {
                 {this.calculateTotal(currentCart, items)}
               </p>
               <form>
-                <label for="name">Name</label>
+                <label htmlFor="name">Name</label>
                 <input type="text" id="name" name="name"></input>
                 <br></br>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input type="text" id="email" name="email"></input>
                 <br></br>
                 <div className="paymentMethod">
-                  <label for="payment">Payment Method</label>
+                  <label htmlFor="payment">Payment Method</label>
                   <input
                     type="radio"
                     id="venmo"
                     name="payment"
                     value="venmo"
                   ></input>
-                  <label for="venmo">Venmo</label>
+                  <label htmlFor="venmo">Venmo</label>
 
                   <input
                     type="radio"
@@ -67,7 +67,7 @@ class Cart extends Component {
                     name="payment"
                     value="cash"
                   ></input>
-                  <label for="cash">Cash</label>
+                  <label htmlFor="cash">Cash</label>
 
                   <input
                     type="radio"
@@ -75,16 +75,16 @@ class Cart extends Component {
                     name="payment"
                     value="card"
                   ></input>
-                  <label for="card">Card</label>
+                  <label htmlFor="card">Card</label>
                   <br></br>
                 </div>
-                <label for="cardNumber">Card Number</label>
+                <label htmlFor="cardNumber">Card Number</label>
                 <input type="text" id="cardNumber" name="cardNumber"></input>
                 <br></br>
-                <label for="cardName">Name on Card</label>
+                <label htmlFor="cardName">Name on Card</label>
                 <input type="text" id="cardName" name="cardName"></input>
                 <br></br>
-                <label for="expiration">Expiration Date</label>
+                <label htmlFor="expiration">Expiration Date</label>
                 <input type="text" id="expiration" name="expiration"></input>
                 <br></br>
                 <p>

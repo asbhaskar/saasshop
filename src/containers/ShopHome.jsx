@@ -30,7 +30,7 @@ class ShopHome extends Component {
     currentCart: {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.pullShopItems();
   }
 

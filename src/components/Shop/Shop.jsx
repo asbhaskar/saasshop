@@ -5,19 +5,6 @@ import "./Shop.css";
 
 class Shop extends Component {
   filterSelection = (c) => {
-    let x, i;
-    x = document.getElementsByClassName("itemDiv");
-    if (c === "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      if (x[i].className.indexOf(c) > -1) {
-        this.removeClass(x[i], "hide");
-      } else {
-        this.addClass(x[i], "hide");
-      }
-    }
-  };
-
-  filterSelection2 = (c) => {
     document.querySelector(".shirts").style.display = "block";
     document.querySelector(".stickers").style.display = "block";
     switch (c) {
@@ -27,29 +14,6 @@ class Shop extends Component {
       case "stickers":
         document.querySelector(".shirts").style.display = "none";
         break;
-    }
-  };
-
-  addClass = (element, name) => {
-    let i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      if (arr1.indexOf(arr2[i]) === -1) {
-        element.className += " " + arr2[i];
-      }
-    }
-  };
-
-  removeClass = (element, name) => {
-    let i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      while (arr1.indexOf(arr2[i]) > -1) {
-        arr1.splice(arr1.indexOf(arr2[i]), 1);
-      }
-      element.className = arr1.join(" ");
     }
   };
 
@@ -70,7 +34,7 @@ class Shop extends Component {
                       id="all"
                       value="all"
                       name="filter"
-                      onClick={() => this.filterSelection2("all")}
+                      onClick={() => this.filterSelection("all")}
                     ></input>
                     <label htmlFor="all">Show All</label>
                   </div>
@@ -80,7 +44,7 @@ class Shop extends Component {
                       id="shirts"
                       value="shirts"
                       name="filter"
-                      onClick={() => this.filterSelection2("shirts")}
+                      onClick={() => this.filterSelection("shirts")}
                     ></input>
                     <label htmlFor="shirts">Shirts</label>
                   </div>
@@ -90,7 +54,7 @@ class Shop extends Component {
                       id="stickers"
                       value="stickers"
                       name="filter"
-                      onClick={() => this.filterSelection2("stickers")}
+                      onClick={() => this.filterSelection("stickers")}
                     ></input>
                     <label htmlFor="stickers">Stickers</label>
                   </div>

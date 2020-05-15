@@ -9,33 +9,9 @@ import Gift from "../../assets/images/gift.png";
 class Cart extends Component {
   state = {};
 
-  // Function to calculate the number of items in cart
-  calculateNumItems = (currentCart, items) => {
-    console.log(currentCart);
-    let total = 0;
-
-    Object.keys(items).forEach((key) => {
-      total += currentCart[key] ? currentCart[key] : 0;
-    });
-
-    return total;
-  };
-
-  // Function to calculate total price of items in cart
-  calculateTotalPrice = (currentCart, items) => {
-    let total = 0;
-
-    Object.keys(items).forEach((key) => {
-      total +=
-        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
-    });
-
-    return total.toFixed(2);
-  };
-
   // Function to display items in cart before submit
-  renderItems = (items, currentCart, onChange) => {
-    if (this.calculateNumItems(currentCart, items) === 0) {
+  renderItems = (items, currentCart, onChange, calculateNumItems) => {
+    if (calculateNumItems(currentCart, items) === 0) {
       return <p>Your cart is empty!</p>;
     } else {
       return Object.keys(items).map((key) => (
@@ -51,8 +27,8 @@ class Cart extends Component {
   };
 
   // Function to display items in cart after submit
-  renderItemsSummary = (items, currentCart, onChange) => {
-    if (this.calculateNumItems(currentCart, items) === 0) {
+  renderItemsSummary = (items, currentCart, onChange, calculateNumItems) => {
+    if (calculateNumItems(currentCart, items) === 0) {
       return <p>Your cart is empty!</p>;
     } else {
       return Object.keys(items).map((key) => (
@@ -73,7 +49,7 @@ class Cart extends Component {
 
     // Do not save if cart is empty
     const { items, currentCart } = this.props;
-    if (this.calculateNumItems(currentCart, items) === 0) {
+    if (this.props.calculateNumItems(currentCart, items) === 0) {
       document.querySelector("#emptyCart").style.display = "block";
       setTimeout(() => {
         document.querySelector("#emptyCart").style.display = "none";
@@ -126,19 +102,30 @@ class Cart extends Component {
   };
 
   render() {
-    const { items, currentCart, onChange } = this.props;
+    const {
+      items,
+      currentCart,
+      onChange,
+      calculateTotalPrice,
+      calculateNumItems,
+    } = this.props;
     return (
       <React.Fragment>
         <div className="container">
           <h1>Your Shopping Cart</h1>
           <div className="row">
             <div className="col-lg-6">
-              {this.renderItems(items, currentCart, onChange)}
+              {this.renderItems(
+                items,
+                currentCart,
+                onChange,
+                calculateNumItems
+              )}
             </div>
             <div className="col-lg-5 offset-1">
               <p style={{ textAlign: "right" }}>
                 <strong>SUBTOTAL</strong> $
-                {this.calculateTotalPrice(currentCart, items)}
+                {calculateTotalPrice(currentCart, items)}
               </p>
               <form id="paymentForm">
                 <label htmlFor="name">Name</label>
@@ -169,7 +156,7 @@ class Cart extends Component {
 
                 <p>
                   If you selected Venmo, please Venmo $
-                  {this.calculateTotalPrice(currentCart, items)} to @calsaas.
+                  {calculateTotalPrice(currentCart, items)} to @calsaas.
                 </p>
                 <button className="submitButton" type="submit">
                   Submit
@@ -188,9 +175,14 @@ class Cart extends Component {
               <h1>Your Order Summary</h1>
               <p style={{ textAlign: "right" }}>
                 <strong>SUBTOTAL</strong> $
-                {this.calculateTotalPrice(currentCart, items)}
+                {calculateTotalPrice(currentCart, items)}
               </p>
-              {this.renderItemsSummary(items, currentCart, onChange)}
+              {this.renderItemsSummary(
+                items,
+                currentCart,
+                onChange,
+                calculateNumItems
+              )}
             </div>
             <div className="col-lg-5 offset-1">
               <h1 style={{ color: "#ADDEFF" }}>Thank you!</h1>

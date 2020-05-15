@@ -56,7 +56,8 @@ class ShopHome extends Component {
     return total;
   };
 
-  calculateTotal = (currentCart, items) => {
+  // Function to calculate total price of items in cart
+  calculateTotalPrice = (currentCart, items) => {
     let total = 0;
 
     Object.keys(items).forEach((key) => {
@@ -74,7 +75,7 @@ class ShopHome extends Component {
           items={this.state.data}
           onChange={this.onChange}
           currentCart={this.state.currentCart}
-          calculateTotal={this.calculateTotal}
+          calculateTotalPrice={this.calculateTotalPrice}
           calculateNumItems={this.calculateNumItems}
         />
         <div className="gradient-divide"></div>
@@ -97,7 +98,7 @@ class ShopHome extends Component {
               items={this.state.data}
               currentCart={this.state.currentCart}
               onChange={this.onChange}
-              calculateTotal={this.calculateTotal}
+              calculateTotalPrice={this.calculateTotalPrice}
               calculateNumItems={this.calculateNumItems}
             />
           )}

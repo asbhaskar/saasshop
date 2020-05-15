@@ -4,7 +4,6 @@ import Item from "./Item/Item.jsx";
 import "./Shop.css";
 
 class Shop extends Component {
-
   filterSelection = (c) => {
     let x, i;
     x = document.getElementsByClassName("itemDiv");
@@ -15,6 +14,19 @@ class Shop extends Component {
       } else {
         this.addClass(x[i], "hide");
       }
+    }
+  };
+
+  filterSelection2 = (c) => {
+    document.querySelector(".shirts").style.display = "block";
+    document.querySelector(".stickers").style.display = "block";
+    switch (c) {
+      case "shirts":
+        document.querySelector(".stickers").style.display = "none";
+        break;
+      case "stickers":
+        document.querySelector(".shirts").style.display = "none";
+        break;
     }
   };
 
@@ -56,9 +68,9 @@ class Shop extends Component {
                     <input
                       type="radio"
                       id="all"
-                      name="category"
                       value="all"
-                      onClick={() => this.filterSelection("all")}
+                      name="filter"
+                      onClick={() => this.filterSelection2("all")}
                     ></input>
                     <label htmlFor="all">Show All</label>
                   </div>
@@ -66,19 +78,19 @@ class Shop extends Component {
                     <input
                       type="radio"
                       id="shirts"
-                      name="payment"
                       value="shirts"
-                      onClick={() => this.filterSelection("shirt")}
+                      name="filter"
+                      onClick={() => this.filterSelection2("shirts")}
                     ></input>
-                    <label htmlFor="stickers">Shirts</label>
+                    <label htmlFor="shirts">Shirts</label>
                   </div>
                   <div className="filterOption">
                     <input
                       type="radio"
                       id="stickers"
-                      name="payment"
                       value="stickers"
-                      onClick={() => this.filterSelection("sticker")}
+                      name="filter"
+                      onClick={() => this.filterSelection2("stickers")}
                     ></input>
                     <label htmlFor="stickers">Stickers</label>
                   </div>
@@ -86,16 +98,37 @@ class Shop extends Component {
               </div>
             </div>
             <div className="col-lg-9 offset-1">
-              <div className="row">
-                {Object.keys(items).map((key) => (
-                  <Item
-                    key={key}
-                    itemId={key}
-                    quantity={currentCart[key]}
-                    item={items[key]}
-                    onChange={this.props.onChange}
-                  />
-                ))}
+              <div className="shirts">
+                <h3>Shirts</h3>
+                <div className="row">
+                  {Object.keys(items)
+                    .filter((key) => items[key].category === "shirt")
+                    .map((key) => (
+                      <Item
+                        key={key}
+                        itemId={key}
+                        quantity={currentCart[key]}
+                        item={items[key]}
+                        onChange={this.props.onChange}
+                      />
+                    ))}
+                </div>
+              </div>
+              <div className="stickers">
+                <h3>Stickers</h3>
+                <div className="row">
+                  {Object.keys(items)
+                    .filter((key) => items[key].category === "sticker")
+                    .map((key) => (
+                      <Item
+                        key={key}
+                        itemId={key}
+                        quantity={currentCart[key]}
+                        item={items[key]}
+                        onChange={this.props.onChange}
+                      />
+                    ))}
+                </div>
               </div>
             </div>
           </div>

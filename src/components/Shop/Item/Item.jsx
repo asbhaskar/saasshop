@@ -8,18 +8,30 @@ class Item extends PureComponent {
     const { description, image_url, sales_price } = item;
     const itemQuantity = quantity ? quantity : 0;
     return (
-      <div className={"itemDiv col-lg-3 col-sm-6 " + this.props.item.category}>
-        <img src={image_url} alt="item"/>
-        <h4>{description}</h4>
-        <h5>${sales_price}</h5>
-        <div>
-          <button className="quantity" onClick={() => onChange(itemId, -1)}>
-            -
-          </button>
-          <span style={{ margin: 10 }}>{itemQuantity}</span>
-          <button className="quantity" onClick={() => onChange(itemId, 1)}>
-            +
-          </button>
+      <div className="col-lg-4 col-sm-6 ">
+        <div className={"itemDiv " + this.props.item.category}>
+          <div className="itemImg">
+            <img src={image_url} alt="item" />
+          </div>
+
+          <h4>{description}</h4>
+          <h5>${sales_price}</h5>
+          <label for="size">Size: </label>
+          <select id="size">
+            <option value="small">S</option>
+            <option value="medium">M</option>
+            <option value="large">L</option>
+            <option value="extra_large">XL</option>
+          </select>
+          <div>
+            <button className="quantity" onClick={() => onChange(itemId, -1)}>
+              -
+            </button>
+            <span style={{ margin: 10 }}>{itemQuantity}</span>
+            <button className="quantity" onClick={() => onChange(itemId, 1)}>
+              +
+            </button>
+          </div>
         </div>
       </div>
     );

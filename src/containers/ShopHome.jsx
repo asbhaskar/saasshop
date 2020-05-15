@@ -30,6 +30,7 @@ class ShopHome extends Component {
       });
   };
 
+  // Function to update the quantity of an item in cart
   onChange = (itemId, direction) => {
     const cart = this.state.currentCart;
     const currentCart = cart[itemId] ? cart[itemId] : 0;
@@ -40,14 +41,12 @@ class ShopHome extends Component {
       updatedCount = stock;
       alert("Cannot add item to cart. Max stock of item reached.");
     }
-    //updatedCount = updatedCount > stock ? stock : updatedCount;
-    // TODO: if updatedCount is 0, delete the item from cart
     cart[itemId] = updatedCount;
     this.setState({ cart });
   };
 
+  // Function to calculate the total number of items in cart
   calculateNumItems = (currentCart, items) => {
-    console.log(currentCart);
     let total = 0;
 
     Object.keys(items).forEach((key) => {
@@ -78,6 +77,7 @@ class ShopHome extends Component {
           calculateTotal={this.calculateTotal}
           calculateNumItems={this.calculateNumItems}
         />
+        <div className="gradient-divide"></div>
         <Route
           exact
           path="/"

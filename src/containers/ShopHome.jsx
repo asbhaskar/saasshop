@@ -6,14 +6,45 @@ import Cart from "../components/Cart/Cart";
 import AdminUI from "../components/Admin/AdminUI";
 import UserUI from "../components/User/UserUI";
 import "./ShopHome.css";
+import SignIn from "../components/SignIn/SignIn";
+import Zoomer from "../assets/images/shirts/zoomer.png";
+import Logo from "../assets/images/stickers/SAAS_logo.png";
 import firebase from "../firebase/firebase";
-
+const provider = new firebase.auth.GoogleAuthProvider();
 class ShopHome extends Component {
-  state = {
-    data: {},
-    currentCart: {},
-    orders: {},
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [
+        {
+          id: 1,
+          value: 0,
+          name: "DOGDOGDOG",
+          price: 20,
+          image: Zoomer,
+        },
+        {
+          id: 2,
+          value: 0,
+          name: "SAAS Logo",
+          price: 2,
+          image: Logo,
+        },
+      ],
+      data: {},
+      currentCart: {},
+      orders: {},
+      auth: null,
+    };
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      this.setState({ auth: user });
+    });
+
+    this.logOut = this.logOut.bind(this);
+    this.logIn = this.logIn.bind(this);
+  }
 
   componentDidMount() {
     this.pullShopItems();
@@ -100,7 +131,18 @@ class ShopHome extends Component {
     this.setState({ data });
   };
 
+  logOut = () => {
+    console.log("log out");
+    firebase.auth().signOut();
+  };
+
+  logIn = () => {
+    console.log("log in");
+    firebase.auth().signInWithRedirect(provider);
+  };
+
   render() {
+    console.log(firebase.auth().currentUser);
     return (
       <React.Fragment>
         <NavBar
@@ -109,6 +151,9 @@ class ShopHome extends Component {
           currentCart={this.state.currentCart}
           calculateTotalPrice={this.calculateTotalPrice}
           calculateNumItems={this.calculateNumItems}
+          logIn={this.logIn}
+          logOut={this.logOut}
+          auth={this.state.auth}
         />
         <div class="gradient-divide"></div>
         <Route
@@ -116,6 +161,17 @@ class ShopHome extends Component {
           path="/"
           render={(props) => (
             <Shop
+              items={this.state.data}
+              onChange={this.onChange}
+              currentCart={this.state.currentCart}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/signin"
+          render={() => (
+            <SignIn
               items={this.state.data}
               onChange={this.onChange}
               currentCart={this.state.currentCart}

@@ -1,23 +1,42 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Logo from "../../assets/images/logo.png";
 import CartIcon from "../../assets/icons/supermarket.svg";
 import UserIcon from "../../assets/icons/user.svg";
 import { HashLink as Link } from "react-router-hash-link";
 import "./NavBar.css";
+import PropTypes from "prop-types";
 
 class NavBar extends Component {
-  state = {
-    total: 0,
-    subtotal: 0,
-    currentCart: this.props.currentCart,
-    items: this.props.items,
+  renderAuth = () => {
+    const { auth, logOut, logIn } = this.props;
+    if (auth) {
+      return (
+        <div>
+          <div>Welcome, {auth.displayName}</div>
+          <p align="right">
+            <Link onClick={logOut}>Log Out</Link>
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div>Welcome, SAASie</div>
+          <p align="right">
+            <Link onClick={logIn}>Log In</Link>
+          </p>
+        </div>
+      );
+    }
   };
 
   render() {
-    const { items, currentCart } = this.props;
-
-    // being passed down correctly, function not working
+    const {
+      items,
+      currentCart,
+      calculateNumItems,
+      calculateTotalPrice,
+    } = this.props;
     return (
       <nav>
         <a href="http://saas.berkeley.edu">
@@ -28,36 +47,15 @@ class NavBar extends Component {
         </h3>
         <div className="iconText">
           <div className="navbarText">
-            <p>Items {this.props.calculateNumItems(currentCart, items)}</p>
-            <p>
-              Subtotal ${this.props.calculateTotalPrice(currentCart, items)}
-            </p>
+            <p>Items {calculateNumItems(currentCart, items)}</p>
+            <p>Subtotal ${calculateTotalPrice(currentCart, items)}</p>
           </div>
           <Link to="/cart">
             <img className="icon" src={CartIcon} alt="cart_icon" />
           </Link>
         </div>
         <div className="iconText">
-          <div className="navbarText">
-            {this.props.isAuth ? (
-              <div>
-                <Link to="/">
-                  Hello, <strong>{this.props.firstname}</strong>
-                </Link>
-                <Link to="/logout">Logout</Link>
-              </div>
-            ) : (
-              <div>
-                <p>
-                  Hello, <strong>SAASie</strong>
-                </p>
-                <Link to="/signin">Sign in</Link>
-              </div>
-            )}
-            {/* <p>
-                  <a href="#">Sign in</a>
-                  </p> */}
-          </div>
+          {this.renderAuth()}
           <img className="icon" src={UserIcon} alt="user_icon" />
         </div>
       </nav>
@@ -65,12 +63,14 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null,
-    userId: state.auth.userId,
-    firstname: state.auth.firstname,
-  };
+NavBar.propTypes = {
+  auth: PropTypes.object,
+  items: PropTypes.object,
+  currentCart: PropTypes.object,
+  logIn: PropTypes.func,
+  logOut: PropTypes.func,
+  calculateNumItems: PropTypes.func,
+  calculateTotalPrice: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default NavBar;

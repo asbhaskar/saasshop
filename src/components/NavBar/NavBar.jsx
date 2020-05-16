@@ -8,42 +8,11 @@ import "./NavBar.css";
 import firebase from "../../firebase/firebase";
 
 class NavBar extends Component {
-  sumArray = (items, prop) => {
-    if (items == null) {
-      return 0;
-    }
-    return items.reduce(function (a, b) {
-      return b[prop] == null ? a : a + b[prop];
-    }, 0);
-  };
-
-  calculateNumItems = (currentCart, items) => {
-    var total = 0;
-
-    Object.keys(items).forEach((key) => {
-      total += currentCart[key] ? currentCart[key] : 0;
-    });
-
-    return total;
-  };
-
-  calculateTotalPrice = (currentCart, items) => {
-    var total = 0;
-
-    Object.keys(items).forEach((key) => {
-      total +=
-        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
-    });
-
-    return total.toFixed(2);
-  };
-
-  calculateTotal = () => {
-    var total = 0;
-    for (var i = 0; i < this.props.items.length; i++) {
-      total = total + this.props.items[i].price * this.props.items[i].value;
-    }
-    return total;
+  state = {
+    total: 0,
+    subtotal: 0,
+    currentCart: this.props.currentCart,
+    items: this.props.items,
   };
 
   renderAuth = () => {
@@ -71,27 +40,50 @@ class NavBar extends Component {
   };
 
   render() {
-    console.log("hi");
+    const { items, currentCart } = this.props;
+
+    // being passed down correctly, function not working
     return (
       <nav>
         <a href="http://saas.berkeley.edu">
-          <img src={Logo} />
+          <img src={Logo} alt="saas_logo" />
         </a>
         <h3>
           <Link to="/">MERCH SHOP</Link>
         </h3>
         <div className="iconText">
           <div className="navbarText">
-            <p>Items {this.sumArray(this.props.items, "value")}</p>
-            <p>Subtotal ${this.calculateTotal()}</p>
+            <p>Items {this.props.calculateNumItems(currentCart, items)}</p>
+            <p>
+              Subtotal ${this.props.calculateTotalPrice(currentCart, items)}
+            </p>
           </div>
           <Link to="/cart">
-            <img className="icon" src={CartIcon} />
+            <img className="icon" src={CartIcon} alt="cart_icon" />
           </Link>
         </div>
         <div className="iconText">
-          <div className="navbarText">{this.renderAuth()}</div>
-          <img className="icon" src={UserIcon} />
+          <div className="navbarText">
+            {this.props.isAuth ? (
+              <div>
+                <Link to="/">
+                  Hello, <strong>{this.props.firstname}</strong>
+                </Link>
+                <Link to="/logout">Logout</Link>
+              </div>
+            ) : (
+              <div>
+                <p>
+                  Hello, <strong>SAASie</strong>
+                </p>
+                <Link to="/signin">Sign in</Link>
+              </div>
+            )}
+            {/* <p>
+                  <a href="#">Sign in</a>
+                  </p> */}
+          </div>
+          <img className="icon" src={UserIcon} alt="user_icon" />
         </div>
       </nav>
     );

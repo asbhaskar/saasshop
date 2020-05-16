@@ -1,15 +1,15 @@
-.cartItemDiv {
+.purchasedQuantity {
+  border-radius: 50%;
+}
+
+.purchasedItemDiv {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.cartItemDiv p {
-  font-size: 2vw;
-}
-
-.cartItemDiv img {
-  width: 30%;
+.purchasedItemDiv img {
+  width: 25%;
   margin-right: 10px;
 }

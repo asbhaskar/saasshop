@@ -1,3 +1,40 @@
-.show {
-  display: block;
+html {
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.col-lg-2 {
+  margin-top: 30px;
+}
+
+.col-lg-9 {
+  margin-top: 30px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.filterOption {
+  display: flex;
+  flex-direction: row;
+}
+
+.filterOption label {
+  margin-left: -30px;
+  margin-top: -3px;
+}
+
+.shirts{
+  margin-bottom:2em;
+}
+
+.stickers{
+  margin-bottom:2em;
 }

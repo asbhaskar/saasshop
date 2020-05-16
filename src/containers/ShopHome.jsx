@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
+import AdminUI from "../components/Admin/AdminUI";
+import UserUI from "../components/User/UserUI";
 import "./ShopHome.css";
 import SignIn from "../components/SignIn/SignIn";
 import Zoomer from "../assets/images/shirts/zoomer.png";
@@ -31,6 +33,7 @@ class ShopHome extends Component {
       ],
       data: {},
       currentCart: {},
+      orders: {},
     };
     this.logOut = this.logOut.bind(this);
     this.logIn = this.logIn.bind(this);
@@ -38,6 +41,7 @@ class ShopHome extends Component {
 
   componentDidMount() {
     this.pullShopItems();
+    this.pullPastOrders();
   }
 
   pullShopItems = () => {
@@ -54,6 +58,22 @@ class ShopHome extends Component {
       });
   };
 
+  // Function to get past orders
+  pullPastOrders = () => {
+    firebase
+      .firestore()
+      .collection("orders")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((order) => {
+          const orders = this.state.orders;
+          orders[order.id] = order.data();
+          this.setState({ orders });
+        });
+      });
+  };
+
+  // Function to update the quantity of an item in cart
   onChange = (itemId, direction) => {
     const cart = this.state.currentCart;
     const currentCart = cart[itemId] ? cart[itemId] : 0;
@@ -64,35 +84,44 @@ class ShopHome extends Component {
       updatedCount = stock;
       alert("Cannot add item to cart. Max stock of item reached.");
     }
-    //updatedCount = updatedCount > stock ? stock : updatedCount;
     cart[itemId] = updatedCount;
     this.setState({ cart });
   };
 
-  handleIncrement = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    items[index].value++;
-    this.setState({ items });
+  // Function to calculate the total number of items in cart
+  calculateNumItems = (currentCart, items) => {
+    let total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total += currentCart[key] ? currentCart[key] : 0;
+    });
+
+    return total;
   };
 
-  handleDecrement = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    if (items[index].value > 0) {
-      items[index].value--;
-    }
-    this.setState({ items });
+  // Function to calculate total price of items in cart
+  calculateTotalPrice = (currentCart, items) => {
+    let total = 0;
+
+    Object.keys(items).forEach((key) => {
+      total +=
+        items[key].sales_price * (currentCart[key] ? currentCart[key] : 0);
+    });
+
+    return total.toFixed(2);
   };
 
-  handleDelete = (item) => {
-    const items = [...this.state.items];
-    const index = items.indexOf(item);
-    items[index] = { ...item };
-    items[index].value = 0;
-    this.setState({ items });
+  // Function to update the quantity of an item in stock (admin only)
+  // THIS DOESN'T FULLY WORK LOL
+  updateStock = (itemId, direction) => {
+    const data = this.state.data;
+    const currentStock = this.state.data[itemId].stock;
+    let updatedCount =
+      currentStock + direction < 0 ? 0 : currentStock + direction;
+    data[itemId].stock = updatedCount;
+    //need to actually update firebase
+    console.log(data[itemId].stock);
+    this.setState({ data });
   };
 
   logOut = () => {
@@ -108,16 +137,19 @@ class ShopHome extends Component {
   render() {
     console.log(firebase.auth().currentUser);
     return (
-      <div>
+      <React.Fragment>
         <NavBar
-          items={this.state.items.filter((i) => i.value > 0)}
-          logOut={this.logOut}
-          logIn={this.logIn}
+          items={this.state.data}
+          onChange={this.onChange}
+          currentCart={this.state.currentCart}
+          calculateTotalPrice={this.calculateTotalPrice}
+          calculateNumItems={this.calculateNumItems}
         />
+        <div class="gradient-divide"></div>
         <Route
           exact
           path="/"
-          render={() => (
+          render={(props) => (
             <Shop
               items={this.state.data}
               onChange={this.onChange}
@@ -142,16 +174,35 @@ class ShopHome extends Component {
             <Cart
               {...props}
               items={this.state.data}
-              //items={this.state.items.filter((i) => i.value > 0)}
-              //onIncrement={this.handleIncrement}
-              //onDecrement={this.handleDecrement}
               currentCart={this.state.currentCart}
               onChange={this.onChange}
-              // onDelete={this.handleDelete}
+              calculateTotalPrice={this.calculateTotalPrice}
+              calculateNumItems={this.calculateNumItems}
             />
           )}
         />
-      </div>
+
+        <Route
+          path="/user"
+          render={(props) => (
+            <UserUI
+              {...props}
+              items={this.state.data}
+              orders={this.state.orders}
+            />
+          )}
+        />
+        <Route
+          path="/admin"
+          render={(props) => (
+            <AdminUI
+              {...props}
+              items={this.state.data}
+              updateStock={this.updateStock}
+            />
+          )}
+        />
+      </React.Fragment>
     );
   }
 }

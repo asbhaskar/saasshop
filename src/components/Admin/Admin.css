@@ -1,0 +1,16 @@
+.addMerchButton {
+  border-radius: 18px !important;
+  background-color: #addeff;
+  color: white;
+  text-transform: uppercase;
+  width: 150px;
+  margin-left: 40px;
+}
+
+#adminShirts,
+#adminStickers {
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}

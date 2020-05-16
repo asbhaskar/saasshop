@@ -2,38 +2,27 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Item from "./Item/Item.jsx";
 import "./Shop.css";
+import {
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 class Shop extends Component {
-  filterSelection = (c) => {
-    var x, i;
-    x = document.getElementsByClassName("itemDiv");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      this.removeClass(x[i], "show");
-      if (x[i].className.indexOf(c) > -1) this.addClass(x[i], "show");
-    }
-  };
-
-  addClass = (element, name) => {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      if (arr1.indexOf(arr2[i]) == -1) {
-        element.className += " " + arr2[i];
-      }
-    }
-  };
-
-  removeClass = (element, name) => {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      while (arr1.indexOf(arr2[i]) > -1) {
-        arr1.splice(arr1.indexOf(arr2[i]), 1);
-      }
-      element.className = arr1.join(" ");
+  filterSelection = (c, value) => {
+    document.querySelector(".shirts").style.display = "block";
+    document.querySelector(".stickers").style.display = "block";
+    switch (value) {
+      case "shirts":
+        document.querySelector(".stickers").style.display = "none";
+        break;
+      case "stickers":
+        document.querySelector(".shirts").style.display = "none";
+        break;
+      default:
+        break;
     }
   };
 
@@ -41,34 +30,70 @@ class Shop extends Component {
     const { items, currentCart } = this.props;
     return (
       <React.Fragment>
-        <div class="sidebar">
-          <h2>Filter by</h2>
-          <div>
-            <h3>Categories:</h3>
-            <button
-              class="btn active"
-              onClick={() => this.filterSelection("all")}
-            >
-              Show All
-            </button>
-            <button class="btn" onClick={() => this.filterSelection("shirt")}>
-              Shirts
-            </button>
-            <button class="btn" onClick={() => this.filterSelection("sticker")}>
-              Stickers
-            </button>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-2">
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Filter By Category</FormLabel>
+                <RadioGroup
+                  aria-label="filter"
+                  name="filter"
+                  value={this.value}
+                  onChange={this.filterSelection}
+                >
+                  <FormControlLabel
+                    value="all"
+                    control={<Radio />}
+                    label="All"
+                  />
+                  <FormControlLabel
+                    value="shirts"
+                    control={<Radio />}
+                    label="Shirts"
+                  />
+                  <FormControlLabel
+                    value="stickers"
+                    control={<Radio />}
+                    label="Stickers"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
+            <div className="col-lg-9 offset-1">
+              <div className="shirts">
+                <h3>Shirts</h3>
+                <div className="row">
+                  {Object.keys(items)
+                    .filter((key) => items[key].category === "shirt")
+                    .map((key) => (
+                      <Item
+                        key={key}
+                        itemId={key}
+                        quantity={currentCart[key]}
+                        item={items[key]}
+                        onChange={this.props.onChange}
+                      />
+                    ))}
+                </div>
+              </div>
+              <div className="stickers">
+                <h3>Stickers</h3>
+                <div className="row">
+                  {Object.keys(items)
+                    .filter((key) => items[key].category === "sticker")
+                    .map((key) => (
+                      <Item
+                        key={key}
+                        itemId={key}
+                        quantity={currentCart[key]}
+                        item={items[key]}
+                        onChange={this.props.onChange}
+                      />
+                    ))}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          {Object.keys(items).map((key) => (
-            <Item
-              key={key}
-              itemId={key}
-              quantity={currentCart[key]}
-              item={items[key]}
-              onChange={this.props.onChange}
-            />
-          ))}
         </div>
       </React.Fragment>
     );

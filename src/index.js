@@ -5,10 +5,11 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { Provider, Connect } from "react-redux";
+import { Provider } from "react-redux";
 import authReducer from "./store/reducers/auth";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
+import 'typeface-roboto';
 
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
@@ -21,9 +22,6 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === "CREATE_TEMPLATE") {
-    state.template = undefined;
-  }
   return appReducer(state, action);
 };
 

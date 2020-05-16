@@ -5,9 +5,16 @@ import CartItemSummary from "./CartItemSummary/CartItemSummary.jsx";
 import "./Cart.css";
 import firebase from "../../firebase/firebase";
 import Gift from "../../assets/images/gift.png";
+import { Button,
+  FormLabel, FormControl, FormControlLabel, 
+  Radio, RadioGroup, 
+  TextField, 
+  } from '@material-ui/core';
 
 class Cart extends Component {
-  state = {};
+  state = {
+    method: "venmo"
+  };
 
   // Function to display items in cart before submit
   renderItems = (items, currentCart, onChange, calculateNumItems) => {
@@ -43,6 +50,10 @@ class Cart extends Component {
     }
   };
 
+  onChangePayment = (event, value) => {
+    this.setState({method: value})
+  }
+
   // Listen for form submit
   submitForm = (event) => {
     event.preventDefault();
@@ -75,7 +86,7 @@ class Cart extends Component {
 
   componentDidMount = () => {
     document
-      .getElementById("paymentForm")
+      .getElementById("payment-form")
       .addEventListener("submit", this.submitForm);
     // Reference orders collection
     const ordersRef = firebase.firestore().collection("orders");
@@ -111,57 +122,52 @@ class Cart extends Component {
     } = this.props;
     return (
       <React.Fragment>
-        <div className="container">
-          <h1>Your Shopping Cart</h1>
+        <div className="container order-container">
           <div className="row">
             <div className="col-lg-6">
-              {this.renderItems(
-                items,
-                currentCart,
-                onChange,
-                calculateNumItems
-              )}
+              <div className="cart">
+                <h2 class="center shopping-cart-label">Your Shopping Cart</h2>
+                  {this.renderItems(
+                    items,
+                    currentCart,
+                    onChange,
+                    calculateNumItems
+                  )}
+              </div>
             </div>
             <div className="col-lg-5 offset-1">
-              <p style={{ textAlign: "right" }}>
-                <strong>SUBTOTAL</strong> $
-                {calculateTotalPrice(currentCart, items)}
-              </p>
-              <form id="paymentForm">
-                <label htmlFor="name">Name</label>
-                <input type="text" id="name" name="name" required></input>
-                <br></br>
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" required></input>
-                <br></br>
-                <div className="paymentMethod">
-                  <label htmlFor="payment">Payment Method</label>
-                  <input
-                    type="radio"
-                    id="venmo"
-                    name="payment"
-                    value="venmo"
-                  ></input>
-                  <label htmlFor="venmo">Venmo</label>
-
-                  <input
-                    type="radio"
-                    id="card"
-                    name="payment"
-                    value="card"
-                  ></input>
-                  <label htmlFor="card">Card</label>
-                  <br></br>
+              <form id="payment-form">
+                <h2 class="center">Confirm Order</h2>
+                <TextField label="Name" id="name" type="text" required />
+                <br />
+                <TextField label="Email" id="email" type="email" required />
+                <br />
+                <div class="payment-method">
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend" className="filter-label" required>Payment Method</FormLabel>
+                    <RadioGroup aria-label="payment" name="payment" value={this.value} onChange={this.onChangePayment}>
+                      <FormControlLabel value="venmo" control={<Radio />} label="Venmo" />
+                      <FormControlLabel value="cash" control={<Radio />} label="Cash" />
+                      <FormControlLabel value="card" control={<Radio />} label="Card" />
+                    </RadioGroup>
+                  </FormControl>
                 </div>
 
                 <p>
                   If you selected Venmo, please Venmo $
                   {calculateTotalPrice(currentCart, items)} to @calsaas.
                 </p>
-                <button className="submitButton" type="submit">
+                <p className="subtotal">
+                  <strong>SUBTOTAL</strong> $
+                  {calculateTotalPrice(currentCart, items)}
+                </p>
+                <Button variant="outlined" color="primary" className="submitButton">
                   Submit
-                </button>
-                <p id="emptyCart">
+                </Button>
+                {/* <button className="submitButton" type="submit">
+                  Submit
+                </button> */}
+                <p id="emptyCart center">
                   Your cart is empty! Please add some items to your cart before
                   submitting.
                 </p>

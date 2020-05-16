@@ -1,3 +1,8 @@
+html {
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+}
+
 .hide {
   display: none;
 }
@@ -24,4 +29,12 @@
 .filterOption label {
   margin-left: -30px;
   margin-top: -3px;
+}
+
+.shirts{
+  margin-bottom:2em;
+}
+
+.stickers{
+  margin-bottom:2em;
 }

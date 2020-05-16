@@ -7,9 +7,18 @@
   box-shadow: 0px 0px 2px 2px #e8e8e8;
 }
 
-.paymentMethod {
+.center{
+  text-align:center;
+}
+
+.payment-method {
   display: flex;
   flex-direction: row;
+  margin-top:2em;
+}
+
+.filter-label{
+  font-size: 10em;
 }
 
 label {
@@ -19,6 +28,11 @@ label {
 input {
   width: 50%;
   border-color: #addeff;
+}
+
+.subtotal{
+  text-align: right;
+  margin: 2em 0 2em 0;
 }
 
 .submitButton {

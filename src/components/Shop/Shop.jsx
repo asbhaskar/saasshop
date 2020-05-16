@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Item from "./Item/Item.jsx";
 import "./Shop.css";
-import { FormLabel, FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { FormLabel, FormControl, FormControlLabel, 
+  Radio, RadioGroup 
+  } from '@material-ui/core';
 
 class Shop extends Component {
   filterSelection = (c, value) => {
@@ -27,18 +29,14 @@ class Shop extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-2">
-              <h3>Filter by</h3>
-              <div>
-                <h4>Categories:</h4>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Gender</FormLabel>
-                  <RadioGroup aria-label="gender" name="gender1" value={this.value} onChange={this.filterSelection}>
+                  <FormLabel component="legend">Filter By Category</FormLabel>
+                  <RadioGroup aria-label="filter" name="filter" value={this.value} onChange={this.filterSelection}>
                     <FormControlLabel value="all" control={<Radio />} label="All" />
                     <FormControlLabel value="shirts" control={<Radio />} label="Shirts" />
                     <FormControlLabel value="stickers" control={<Radio />} label="Stickers" />
                   </RadioGroup>
                 </FormControl>
-              </div>
             </div>
             <div className="col-lg-9 offset-1">
               <div className="shirts">

@@ -5,15 +5,19 @@ import CartItemSummary from "./CartItemSummary/CartItemSummary.jsx";
 import "./Cart.css";
 import firebase from "../../firebase/firebase";
 import Gift from "../../assets/images/gift.png";
-import { Button,
-  FormLabel, FormControl, FormControlLabel, 
-  Radio, RadioGroup, 
-  TextField, 
-  } from '@material-ui/core';
+import {
+  Button,
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@material-ui/core";
 
 class Cart extends Component {
   state = {
-    method: "venmo"
+    method: "venmo",
   };
 
   // Function to display items in cart before submit
@@ -51,8 +55,8 @@ class Cart extends Component {
   };
 
   onChangePayment = (event, value) => {
-    this.setState({method: value})
-  }
+    this.setState({ method: value });
+  };
 
   // Listen for form submit
   submitForm = (event) => {
@@ -127,12 +131,12 @@ class Cart extends Component {
             <div className="col-lg-6">
               <div className="cart">
                 <h2 class="center shopping-cart-label">Your Shopping Cart</h2>
-                  {this.renderItems(
-                    items,
-                    currentCart,
-                    onChange,
-                    calculateNumItems
-                  )}
+                {this.renderItems(
+                  items,
+                  currentCart,
+                  onChange,
+                  calculateNumItems
+                )}
               </div>
             </div>
             <div className="col-lg-5 offset-1">
@@ -144,11 +148,29 @@ class Cart extends Component {
                 <br />
                 <div class="payment-method">
                   <FormControl component="fieldset">
-                    <FormLabel component="legend" className="filter-label" required>Payment Method</FormLabel>
-                    <RadioGroup aria-label="payment" name="payment" value={this.value} onChange={this.onChangePayment}>
-                      <FormControlLabel value="venmo" control={<Radio />} label="Venmo" />
-                      <FormControlLabel value="cash" control={<Radio />} label="Cash" />
-                      <FormControlLabel value="card" control={<Radio />} label="Card" />
+                    <FormLabel
+                      component="legend"
+                      className="filter-label"
+                      required
+                    >
+                      Payment Method
+                    </FormLabel>
+                    <RadioGroup
+                      aria-label="payment"
+                      name="payment"
+                      value={this.value}
+                      onChange={this.onChangePayment}
+                    >
+                      <FormControlLabel
+                        value="venmo"
+                        control={<Radio />}
+                        label="Venmo"
+                      />
+                      <FormControlLabel
+                        value="card"
+                        control={<Radio />}
+                        label="Card"
+                      />
                     </RadioGroup>
                   </FormControl>
                 </div>
@@ -161,7 +183,11 @@ class Cart extends Component {
                   <strong>SUBTOTAL</strong> $
                   {calculateTotalPrice(currentCart, items)}
                 </p>
-                <Button variant="outlined" color="primary" className="submitButton">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className="submitButton"
+                >
                   Submit
                 </Button>
                 {/* <button className="submitButton" type="submit">

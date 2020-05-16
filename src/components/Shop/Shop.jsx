@@ -12,8 +12,6 @@ import {
 
 class Shop extends Component {
   filterSelection = (c, value) => {
-    console.log(c);
-    console.log(value);
     document.querySelector(".shirts").style.display = "block";
     document.querySelector(".stickers").style.display = "block";
     switch (value) {

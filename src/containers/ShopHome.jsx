@@ -110,6 +110,7 @@ class ShopHome extends Component {
           calculateTotalPrice={this.calculateTotalPrice}
           calculateNumItems={this.calculateNumItems}
         />
+        <div class="gradient-divide"></div>
         <Route
           exact
           path="/"

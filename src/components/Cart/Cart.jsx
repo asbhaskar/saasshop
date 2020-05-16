@@ -86,7 +86,7 @@ class Cart extends Component {
 
   componentDidMount = () => {
     document
-      .getElementById("paymentForm")
+      .getElementById("payment-form")
       .addEventListener("submit", this.submitForm);
     // Reference orders collection
     const ordersRef = firebase.firestore().collection("orders");
@@ -122,19 +122,21 @@ class Cart extends Component {
     } = this.props;
     return (
       <React.Fragment>
-        <div className="container">
-          <h1>Your Shopping Cart</h1>
+        <div className="container order-container">
           <div className="row">
             <div className="col-lg-6">
-              {this.renderItems(
-                items,
-                currentCart,
-                onChange,
-                calculateNumItems
-              )}
+              <div className="cart">
+                <h2 class="center shopping-cart-label">Your Shopping Cart</h2>
+                  {this.renderItems(
+                    items,
+                    currentCart,
+                    onChange,
+                    calculateNumItems
+                  )}
+              </div>
             </div>
             <div className="col-lg-5 offset-1">
-              <form id="paymentForm">
+              <form id="payment-form">
                 <h2 class="center">Confirm Order</h2>
                 <TextField label="Name" id="name" type="text" required />
                 <br />
@@ -165,7 +167,7 @@ class Cart extends Component {
                 {/* <button className="submitButton" type="submit">
                   Submit
                 </button> */}
-                <p id="emptyCart">
+                <p id="emptyCart center">
                   Your cart is empty! Please add some items to your cart before
                   submitting.
                 </p>

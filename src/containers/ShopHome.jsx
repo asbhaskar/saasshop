@@ -4,31 +4,37 @@ import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
 import "./ShopHome.css";
+import SignIn from "../components/SignIn/SignIn";
 import Zoomer from "../assets/images/shirts/zoomer.png";
 import Logo from "../assets/images/stickers/SAAS_logo.png";
 import firebase from "../firebase/firebase";
-
+const provider = new firebase.auth.GoogleAuthProvider();
 class ShopHome extends Component {
-  state = {
-    items: [
-      {
-        id: 1,
-        value: 0,
-        name: "DOGDOGDOG",
-        price: 20,
-        image: Zoomer,
-      },
-      {
-        id: 2,
-        value: 0,
-        name: "SAAS Logo",
-        price: 2,
-        image: Logo,
-      },
-    ],
-    data: {},
-    currentCart: {},
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        {
+          id: 1,
+          value: 0,
+          name: "DOGDOGDOG",
+          price: 20,
+          image: Zoomer,
+        },
+        {
+          id: 2,
+          value: 0,
+          name: "SAAS Logo",
+          price: 2,
+          image: Logo,
+        },
+      ],
+      data: {},
+      currentCart: {},
+    };
+    this.logOut = this.logOut.bind(this);
+    this.logIn = this.logIn.bind(this);
+  }
 
   componentDidMount() {
     this.pullShopItems();
@@ -89,15 +95,41 @@ class ShopHome extends Component {
     this.setState({ items });
   };
 
+  logOut = () => {
+    console.log("log out");
+    firebase.auth().signOut();
+  };
+
+  logIn = () => {
+    console.log("log in");
+    firebase.auth().signInWithRedirect(provider);
+  };
+
   render() {
+    console.log(firebase.auth().currentUser);
     return (
-      <React.Fragment>
-        <NavBar items={this.state.items.filter((i) => i.value > 0)} />
+      <div>
+        <NavBar
+          items={this.state.items.filter((i) => i.value > 0)}
+          logOut={this.logOut}
+          logIn={this.logIn}
+        />
         <Route
           exact
           path="/"
           render={() => (
             <Shop
+              items={this.state.data}
+              onChange={this.onChange}
+              currentCart={this.state.currentCart}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/signin"
+          render={() => (
+            <SignIn
               items={this.state.data}
               onChange={this.onChange}
               currentCart={this.state.currentCart}
@@ -119,7 +151,7 @@ class ShopHome extends Component {
             />
           )}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

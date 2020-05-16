@@ -5,6 +5,7 @@ import CartIcon from "../../assets/icons/supermarket.svg";
 import UserIcon from "../../assets/icons/user.svg";
 import { HashLink as Link } from "react-router-hash-link";
 import "./NavBar.css";
+import firebase from "../../firebase/firebase";
 
 class NavBar extends Component {
   sumArray = (items, prop) => {
@@ -45,7 +46,32 @@ class NavBar extends Component {
     return total;
   };
 
+  renderAuth = () => {
+    if (firebase.auth().currentUser) {
+      //alert("LogOut");
+      return (
+        <div>
+          <p>Welcome, {firebase.auth().currentUser.displayName}</p>
+          <p align="right">
+            <button onClick={this.props.logOut}>Log Out</button>
+          </p>
+        </div>
+      );
+    } else {
+      //alert("LogIn");
+      return (
+        <div>
+          <p>Welcome, SAASie</p>
+          <p align="right">
+            <button onClick={this.props.logIn}>Log In</button>
+          </p>
+        </div>
+      );
+    }
+  };
+
   render() {
+    console.log("hi");
     return (
       <nav>
         <a href="http://saas.berkeley.edu">
@@ -64,26 +90,7 @@ class NavBar extends Component {
           </Link>
         </div>
         <div className="iconText">
-          <div className="navbarText">
-            {this.props.isAuth ? (
-              <div>
-                <Link to="/">
-                  Hello, <strong>{this.props.firstname}</strong>
-                </Link>
-                <Link to="/logout">Logout</Link>
-              </div>
-            ) : (
-              <div>
-                <p>
-                  Hello, <strong>SAASie</strong>
-                </p>
-                <Link to="/signin">Sign in</Link>
-              </div>
-            )}
-            {/* <p>
-                  <a href="#">Sign in</a>
-                  </p> */}
-          </div>
+          <div className="navbarText">{this.renderAuth()}</div>
           <img className="icon" src={UserIcon} />
         </div>
       </nav>
@@ -91,12 +98,4 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null,
-    userId: state.auth.userId,
-    firstname: state.auth.firstname,
-  };
-};
-
-export default connect(mapStateToProps)(NavBar);
+export default NavBar;

@@ -23,8 +23,13 @@ class Item extends PureComponent {
 
   render() {
     const { itemId, onChange, item, quantity } = this.props;
-    const { description, image_url, sales_price } = item;
+    const { description, image_url, sales_price, sizes } = item;
     const itemQuantity = quantity ? quantity : 0;
+    this.sizeOptions = sizes.map((index, key)=>
+      <option value={index}>{index.charAt(0).toUpperCase() + index.slice(1)} </option>
+    );
+    console.log(this.props)
+    console.log(sizes)
     return (
       <div className="col-lg-4 col-sm-6 ">
         <div className={"itemDiv " + this.props.item.category}>
@@ -44,9 +49,7 @@ class Item extends PureComponent {
               }}
             >
               <option aria-label="None" value="" />
-              <option value={"small"}>Small </option>
-              <option value={"medium"}>Medium </option>
-              <option value={"large"}>Large </option>
+              {this.sizeOptions}
             </NativeSelect>
           </FormControl>
           {/* <label htmlFor="size">Size: </label>

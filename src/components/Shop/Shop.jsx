@@ -19,6 +19,8 @@ class Shop extends Component {
       case "stickers":
         document.querySelector(".shirts").style.display = "none";
         break;
+      default:
+        break;
     }
   };
 

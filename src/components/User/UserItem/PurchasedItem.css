@@ -1,0 +1,15 @@
+.purchasedQuantity {
+  border-radius: 50%;
+}
+
+.purchasedItemDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.purchasedItemDiv img {
+  width: 25%;
+  margin-right: 10px;
+}

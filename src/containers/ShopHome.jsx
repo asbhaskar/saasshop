@@ -3,6 +3,8 @@ import { Route } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
+import AdminUI from "../components/Admin/AdminUI";
+import UserUI from "../components/User/UserUI";
 import "./ShopHome.css";
 import firebase from "../firebase/firebase";
 
@@ -10,10 +12,12 @@ class ShopHome extends Component {
   state = {
     data: {},
     currentCart: {},
+    orders: {},
   };
 
   componentDidMount() {
     this.pullShopItems();
+    this.pullPastOrders();
   }
 
   pullShopItems = () => {
@@ -26,6 +30,21 @@ class ShopHome extends Component {
           const data = this.state.data;
           data[item.id] = item.data();
           this.setState({ data });
+        });
+      });
+  };
+
+  // Function to get past orders
+  pullPastOrders = () => {
+    firebase
+      .firestore()
+      .collection("orders")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((order) => {
+          const orders = this.state.orders;
+          orders[order.id] = order.data();
+          this.setState({ orders });
         });
       });
   };
@@ -68,6 +87,19 @@ class ShopHome extends Component {
     return total.toFixed(2);
   };
 
+  // Function to update the quantity of an item in stock (admin only)
+  // THIS DOESN'T FULLY WORK LOL
+  updateStock = (itemId, direction) => {
+    const data = this.state.data;
+    const currentStock = this.state.data[itemId].stock;
+    let updatedCount =
+      currentStock + direction < 0 ? 0 : currentStock + direction;
+    data[itemId].stock = updatedCount;
+    //need to actually update firebase
+    console.log(data[itemId].stock);
+    this.setState({ data });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -100,6 +132,27 @@ class ShopHome extends Component {
               onChange={this.onChange}
               calculateTotalPrice={this.calculateTotalPrice}
               calculateNumItems={this.calculateNumItems}
+            />
+          )}
+        />
+
+        <Route
+          path="/user"
+          render={(props) => (
+            <UserUI
+              {...props}
+              items={this.state.data}
+              orders={this.state.orders}
+            />
+          )}
+        />
+        <Route
+          path="/admin"
+          render={(props) => (
+            <AdminUI
+              {...props}
+              items={this.state.data}
+              updateStock={this.updateStock}
             />
           )}
         />

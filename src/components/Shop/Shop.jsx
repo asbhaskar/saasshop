@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Item from "./Item/Item.jsx";
 import "./Shop.css";
+import { FormLabel, FormControl, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 
 class Shop extends Component {
-  filterSelection = (c) => {
+  filterSelection = (c, value) => {
+    console.log(c);
+    console.log(value);
     document.querySelector(".shirts").style.display = "block";
     document.querySelector(".stickers").style.display = "block";
-    switch (c) {
+    switch (value) {
       case "shirts":
         document.querySelector(".stickers").style.display = "none";
         break;
@@ -27,38 +30,14 @@ class Shop extends Component {
               <h3>Filter by</h3>
               <div>
                 <h4>Categories:</h4>
-                <form className="filter">
-                  <div className="filterOption">
-                    <input
-                      type="radio"
-                      id="all"
-                      value="all"
-                      name="filter"
-                      onClick={() => this.filterSelection("all")}
-                    ></input>
-                    <label htmlFor="all">Show All</label>
-                  </div>
-                  <div className="filterOption">
-                    <input
-                      type="radio"
-                      id="shirts"
-                      value="shirts"
-                      name="filter"
-                      onClick={() => this.filterSelection("shirts")}
-                    ></input>
-                    <label htmlFor="shirts">Shirts</label>
-                  </div>
-                  <div className="filterOption">
-                    <input
-                      type="radio"
-                      id="stickers"
-                      value="stickers"
-                      name="filter"
-                      onClick={() => this.filterSelection("stickers")}
-                    ></input>
-                    <label htmlFor="stickers">Stickers</label>
-                  </div>
-                </form>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Gender</FormLabel>
+                  <RadioGroup aria-label="gender" name="gender1" value={this.value} onChange={this.filterSelection}>
+                    <FormControlLabel value="all" control={<Radio />} label="All" />
+                    <FormControlLabel value="shirts" control={<Radio />} label="Shirts" />
+                    <FormControlLabel value="stickers" control={<Radio />} label="Stickers" />
+                  </RadioGroup>
+                </FormControl>
               </div>
             </div>
             <div className="col-lg-9 offset-1">

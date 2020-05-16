@@ -16,7 +16,7 @@ class Item extends PureComponent {
 
           <h4>{description}</h4>
           <h5>${sales_price}</h5>
-          <label for="size">Size: </label>
+          <label htmlFor="size">Size: </label>
           <select id="size">
             <option value="small">S</option>
             <option value="medium">M</option>

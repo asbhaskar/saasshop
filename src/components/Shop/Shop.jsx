@@ -24,9 +24,8 @@ class Shop extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-2">
-              <h3>Filter by</h3>
+              <h3>Categories:</h3>
               <div>
-                <h4>Categories:</h4>
                 <form className="filter">
                   <div className="filterOption">
                     <input

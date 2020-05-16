@@ -39,6 +39,19 @@
 
 body {
   /*background-color: #f8f8f8 !important;*/
+  background-image: url("../assets/images/gradient.jpg");
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-image: none;
+  }
 }
 
 button {

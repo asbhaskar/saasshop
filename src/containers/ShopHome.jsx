@@ -14,6 +14,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 class ShopHome extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       items: [
         {
@@ -34,7 +35,13 @@ class ShopHome extends Component {
       data: {},
       currentCart: {},
       orders: {},
+      auth: null,
     };
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      this.setState({ auth: user });
+    });
+
     this.logOut = this.logOut.bind(this);
     this.logIn = this.logIn.bind(this);
   }
@@ -144,6 +151,9 @@ class ShopHome extends Component {
           currentCart={this.state.currentCart}
           calculateTotalPrice={this.calculateTotalPrice}
           calculateNumItems={this.calculateNumItems}
+          logIn={this.logIn}
+          logOut={this.logOut}
+          auth={this.state.auth}
         />
         <div class="gradient-divide"></div>
         <Route

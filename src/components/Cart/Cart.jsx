@@ -72,14 +72,17 @@ class Cart extends Component {
       return;
     }
 
-    // Get form values
+    // Get form values commented out for now
     let name = this.getInputVal("name");
     let email = this.getInputVal("email");
-    let venmo = document.getElementById("venmo").checked;
-    let payment = venmo ? "venmo" : "card";
+    let payment = this.state.method;
+    //let venmo = document.getElementById("venmo").checked;
+    //let payment = venmo ? "venmo" : "card";
 
-    // Save order and show summary
+    // Save order (commented out for now)
     this.saveOrder(name, email, payment, items, currentCart);
+
+    //Show summary
     this.showAlert();
   };
 
@@ -105,7 +108,8 @@ class Cart extends Component {
       date: new Date(),
       payment_method: payment,
       items: currentCart,
-      total: this.calculateTotalPrice(currentCart, items),
+      user_id: "zgHUgMKQnlhnjfZtSH4pM7bTapO2",
+      total: this.props.calculateTotalPrice(currentCart, items),
     });
     //TODO: update on_order in inventory?
   };

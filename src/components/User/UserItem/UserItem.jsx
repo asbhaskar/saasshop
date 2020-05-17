@@ -11,7 +11,7 @@ class UserItem extends PureComponent {
       <div className="col-lg-4 col-md-6">
         <div className="userItemDiv">
           <strong>Date: </strong> {convertedDate.getMonth() + 1}/
-          {convertedDate.getDay()}
+          {convertedDate.getUTCDate()}
           <span>
             <strong>Payment Method: </strong> {payment_method}
           </span>

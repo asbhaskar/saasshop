@@ -56,7 +56,9 @@ class NavBar extends Component {
         </div>
         <div className="iconText">
           {this.renderAuth()}
-          <img className="icon" src={UserIcon} alt="user_icon" />
+          <Link to="/user">
+            <img className="icon" src={UserIcon} alt="user_icon" />
+          </Link>
         </div>
       </nav>
     );

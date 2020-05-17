@@ -7,23 +7,23 @@
   box-shadow: 0px 0px 2px 2px #e8e8e8;
 }
 
-.order-container{
+.order-container {
   margin: 1em 0 2em 0;
 }
 
-.center{
-  text-align:center;
+.center {
+  text-align: center;
 }
 
-.cart{
+.cart {
   margin: 0em 1.5em 0 1.5em;
 }
 
-.shopping-cart-label{
-  margin-bottom:1em;
+.shopping-cart-label {
+  margin-bottom: 1em;
 }
 
-#payment-form{
+#payment-form {
   margin: 0em 1.5em 0 1.5em;
 }
 
@@ -33,7 +33,7 @@
   margin-top: 2em;
 }
 
-.filter-label{
+.filter-label {
   font-size: 10em;
 }
 
@@ -46,18 +46,27 @@ input {
   border-color: #addeff;
 }
 
-.subtotal{
+.subtotal {
   text-align: right;
   margin: 2em 0 2em 0;
 }
 
 .submitButton {
   border-radius: 18px !important;
-  background-color: #addeff;
-  color: white;
-  text-transform: uppercase;
+  border: 2px solid #addeff !important;
+  background-color: #addeff !important;
+  color: white !important;
   float: right;
   width: 100px;
+}
+
+.submitButton:hover {
+  border: 2px solid #addeff !important;
+  background-color: white !important;
+  color: #addeff !important;
+  transition: 0.2s;
+
+  text-decoration: none;
 }
 
 h1 {
@@ -75,4 +84,12 @@ h1 {
 
 #emptyCart {
   display: none;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #addeff !important;
+}
+
+.MuiInput-underline:after {
+  border-color: #addeff !important;
 }

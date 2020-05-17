@@ -1,18 +1,20 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import "./Item.css";
-import { IconButton, 
-  FormControl, FormHelperText, 
-  InputLabel, 
-  NativeSelect 
-} from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import {
+  IconButton,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  NativeSelect,
+} from "@material-ui/core";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
 class Item extends PureComponent {
-  state={
-    size:""
-  }
+  state = {
+    size: "",
+  };
 
   handleChange = (event) => {
     const name = event.target.name;
@@ -25,13 +27,15 @@ class Item extends PureComponent {
     const { itemId, onChange, item, quantity } = this.props;
     const { description, image_url, sales_price, sizes } = item;
     const itemQuantity = quantity ? quantity : 0;
-    this.sizeOptions = sizes.map((index, key)=>
-      <option value={index}>{index.charAt(0).toUpperCase() + index.slice(1)} </option>
-    );
-    console.log(this.props)
-    console.log(sizes)
+    this.sizeOptions = sizes.map((index, key) => (
+      <option value={index}>
+        {index.charAt(0).toUpperCase() + index.slice(1)}{" "}
+      </option>
+    ));
+    console.log(this.props);
+    console.log(sizes);
     return (
-      <div className="col-lg-4 col-sm-6 ">
+      <div className="col-lg-4 col-md-6 ">
         <div className={"itemDiv " + this.props.item.category}>
           <div className="itemImg">
             <img src={image_url} alt="item" />
@@ -44,8 +48,8 @@ class Item extends PureComponent {
               value={this.state.size}
               onChange={this.handleChange}
               inputProps={{
-                name: 'size',
-                id: 'size-native-helper',
+                name: "size",
+                id: "size-native-helper",
               }}
             >
               <option aria-label="None" value="" />
@@ -60,14 +64,22 @@ class Item extends PureComponent {
             <option value="extra_large">XL</option>
           </select> */}
           <div className="quantity-control">
-            <IconButton aria-label="delete" onClick={() => onChange(itemId, -1)}>
-              <RemoveCircleIcon fontSize="default"/>
+            <IconButton
+              className="circleButton"
+              aria-label="delete"
+              onClick={() => onChange(itemId, -1)}
+            >
+              <RemoveCircleIcon fontSize="default" />
             </IconButton>
             <span style={{ margin: 10 }}>{itemQuantity}</span>
-            <IconButton aria-label="delete" onClick={() => onChange(itemId, 1)}>
-              <AddCircleIcon fontSize="default"/>
+            <IconButton
+              className="circleButton"
+              aria-label="delete"
+              onClick={() => onChange(itemId, 1)}
+            >
+              <AddCircleIcon fontSize="default" />
             </IconButton>
-              {/* <button className="quantity" onClick={() => onChange(itemId, -1)}>
+            {/* <button className="quantity" onClick={() => onChange(itemId, -1)}>
                 -
               </button>
               <span style={{ margin: 10 }}>{itemQuantity}</span>

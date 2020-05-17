@@ -5,6 +5,7 @@ import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
 import AdminUI from "../components/Admin/AdminUI";
 import UserUI from "../components/User/UserUI";
+import AddMerch from "../components/Admin/AddMerch";
 import "./ShopHome.css";
 import SignIn from "../components/SignIn/SignIn";
 import Zoomer from "../assets/images/shirts/zoomer.png";
@@ -227,6 +228,8 @@ class ShopHome extends Component {
             />
           )}
         />
+
+        <Route path="/addmerch" render={(props) => <AddMerch {...props} />} />
       </React.Fragment>
     );
   }

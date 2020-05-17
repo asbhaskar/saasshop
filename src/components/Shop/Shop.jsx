@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Item from "./Item/Item.jsx";
 import "./Shop.css";
@@ -13,6 +15,7 @@ import {
 } from "@material-ui/core";
 
 class Shop extends Component {
+  // Function to filter by category (shirt, sticker)
   filterSelection = (c, value) => {
     document.querySelector(".shirts").style.display = "block";
     document.querySelector(".stickers").style.display = "block";
@@ -28,12 +31,17 @@ class Shop extends Component {
     }
   };
 
+  // Function that renders "Edit inventory" button if admin
   renderAdminFunction = () => {
     if (this.props.auth) {
       const email = this.props.auth.email;
       console.log(this.props.adminEmailList, email);
       if (this.props.adminEmailList.includes(email)) {
-        return <Link to="/admin">Edit Inventory</Link>;
+        return (
+          <Link className="inventoryLink" to="/admin">
+            Edit Inventory
+          </Link>
+        );
       }
       return null;
     }
@@ -49,7 +57,7 @@ class Shop extends Component {
             <div className="col-lg-2">
               <div>{this.renderAdminFunction()}</div>
 
-              <FormControl component="fieldset">
+              <FormControl className="filterForm" component="fieldset">
                 <FormLabel component="legend">Filter By Category</FormLabel>
                 <RadioGroup
                   aria-label="filter"

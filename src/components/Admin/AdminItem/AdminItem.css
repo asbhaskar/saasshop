@@ -20,3 +20,8 @@
 .itemImg {
   height: 200px;
 }
+
+.circleButton:hover {
+  background-color: none;
+  border: none;
+}

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./CartItem.css";
+import { IconButton } from "@material-ui/core";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
 class CartItem extends Component {
   state = {};
@@ -13,12 +16,25 @@ class CartItem extends Component {
     }
     return (
       <div className="cartItemDiv">
-        <img src={image_url} alt="cart"/>
+        <img src={image_url} alt="cart" />
         <span>{description}</span>
-        <button onClick={() => onChange(itemId, -1)}>-</button>
-        <span>{quantity}</span>
-        <button onClick={() => onChange(itemId, 1)}>+</button>
-        <span>${sales_price} ea.</span>
+        <div className="quantity-control">
+          <IconButton
+            className="circleButton"
+            aria-label="delete"
+            onClick={() => onChange(itemId, -1)}
+          >
+            <RemoveCircleIcon fontSize="default" />
+          </IconButton>
+          <span style={{ margin: 10 }}>{quantity}</span>
+          <IconButton
+            className="circleButton"
+            aria-label="delete"
+            onClick={() => onChange(itemId, 1)}
+          >
+            <AddCircleIcon fontSize="default" />
+          </IconButton>
+        </div>
       </div>
     );
   }

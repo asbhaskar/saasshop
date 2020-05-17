@@ -187,6 +187,7 @@ class Cart extends Component {
                   variant="outlined"
                   color="primary"
                   className="submitButton"
+                  type="submit"
                 >
                   Submit
                 </Button>

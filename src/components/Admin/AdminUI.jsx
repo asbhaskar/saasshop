@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Admin.css";
 import AdminUIItem from "./AdminItem/AdminUIItem";
+import { HashLink as Link } from "react-router-hash-link";
 
 class AdminUI extends Component {
   state = {};
@@ -10,7 +11,9 @@ class AdminUI extends Component {
     return (
       <React.Fragment>
         <h1>Inventory</h1>
-        <button className="addMerchButton">Add Merch</button>
+        <Link className="addMerchButton" to="/addmerch">
+          Add Merch
+        </Link>
 
         <div className="adminShirts">
           <h3>Shirts</h3>

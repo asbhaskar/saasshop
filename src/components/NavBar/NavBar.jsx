@@ -11,7 +11,7 @@ class NavBar extends Component {
     const { auth, logOut, logIn } = this.props;
     if (auth) {
       return (
-        <div>
+        <div className="navbarText">
           <div>Welcome, {auth.displayName}</div>
           <p align="right">
             <Link onClick={logOut}>Log Out</Link>
@@ -20,7 +20,7 @@ class NavBar extends Component {
       );
     } else {
       return (
-        <div>
+        <div className="navbarText">
           <div>Welcome, SAASie</div>
           <p align="right">
             <Link onClick={logIn}>Log In</Link>

@@ -51,6 +51,7 @@ class AddMerch extends Component {
       return;
     }
     this.props.firebasePush(this.state);
+    window.location.reload(true);
   };
 
   onChange = (type, event) => {

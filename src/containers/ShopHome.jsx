@@ -38,7 +38,6 @@ class ShopHome extends Component {
       orders: {},
       adminEmailList: [],
       auth: null,
-      redirect: "",
     };
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);

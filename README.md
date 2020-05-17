@@ -1,4 +1,4 @@
-## The Official Statistics Undergraduate Student Association's Merchandise Shop
+## The Official Student Association for Applied Statistics's Merchandise Shop
 ## Made By Abhinav Bhaskar, Rachel Li, Valerie Yip
 
 This project was a collaboration between three generations of SAAS's Web Development Directors, created during the semester of COVID-19 in an effort to streamline our merchandise selling process.

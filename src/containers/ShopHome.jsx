@@ -35,6 +35,7 @@ class ShopHome extends Component {
       data: {},
       currentCart: {},
       orders: {},
+      adminEmailList: [],
       auth: null,
     };
     firebase.auth().onAuthStateChanged((user) => {
@@ -49,6 +50,7 @@ class ShopHome extends Component {
   componentDidMount() {
     this.pullShopItems();
     this.pullPastOrders();
+    this.pullAdminEmails();
   }
 
   pullShopItems = () => {
@@ -65,7 +67,18 @@ class ShopHome extends Component {
       });
   };
 
-  // Function to get past orders
+  pullAdminEmails = () => {
+    firebase
+      .firestore()
+      .collection("admin")
+      .doc("emails")
+      .get()
+      .then((snapshot) => {
+        const data = snapshot.data();
+        this.setState({ adminEmailList: data.email_list });
+      });
+  };
+
   pullPastOrders = () => {
     firebase
       .firestore()
@@ -164,6 +177,8 @@ class ShopHome extends Component {
               items={this.state.data}
               onChange={this.onChange}
               currentCart={this.state.currentCart}
+              auth={this.state.auth}
+              adminEmailList={this.state.adminEmailList}
             />
           )}
         />

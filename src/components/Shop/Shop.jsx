@@ -26,6 +26,18 @@ class Shop extends Component {
     }
   };
 
+  renderAdminFunction = () => {
+    if (this.props.auth) {
+      const email = this.props.auth.email;
+      console.log(this.props.adminEmailList, email);
+      if (this.props.adminEmailList.includes(email)) {
+        return <button>+</button>;
+      }
+      return null;
+    }
+    return null;
+  };
+
   render() {
     const { items, currentCart } = this.props;
     return (
@@ -33,6 +45,8 @@ class Shop extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-2">
+              <div>{this.renderAdminFunction()}</div>
+
               <FormControl component="fieldset">
                 <FormLabel component="legend">Filter By Category</FormLabel>
                 <RadioGroup

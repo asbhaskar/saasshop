@@ -1,9 +1,9 @@
-## The Official Statistics Undergraduate Student Association's Merchandice Shop
+## The Official Statistics Undergraduate Student Association's Merchandise Shop
 ## Made By Abhinav Bhaskar, Rachel Li, Valerie Yip
 
-This project was a collaboration between three generations of SAAS's Web Development Directors, created during the semester of Covid-19 in an effort to streamline our merchandice selling process.
+This project was a collaboration between three generations of SAAS's Web Development Directors, created during the semester of COVID-19 in an effort to streamline our merchandise selling process.
 
-The project uses React, Redux, Stripe API, ES6+
+The project uses React, Redux, Firebase, Stripe API, ES6+
 
 *Note the items displayed are not actually for sale*
 

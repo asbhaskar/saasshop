@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Item from "./Item/Item.jsx";
 import "./Shop.css";
+import { HashLink as Link } from "react-router-hash-link";
+
 import {
   FormLabel,
   FormControl,
@@ -31,7 +33,7 @@ class Shop extends Component {
       const email = this.props.auth.email;
       console.log(this.props.adminEmailList, email);
       if (this.props.adminEmailList.includes(email)) {
-        return <button>+</button>;
+        return <Link to="/admin">Edit Inventory</Link>;
       }
       return null;
     }

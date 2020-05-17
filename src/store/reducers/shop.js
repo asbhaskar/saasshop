@@ -15,10 +15,10 @@ const pullShopItems = (state, action) => {
 const addItem = (state, action) => {
     console.log(action.size)
     let updatedAmount = 0
-    if (state[action.itemID] == "undefined"){
-     updatedAmount= state[action.itemID][action.size] + action.amount
+    if (state.cart[action.itemID] && state.cart[action.itemID][action.size]){
+        updatedAmount= parseInt(state.cart[action.itemID][action.size]) + parseInt(action.amount)
     }else{
-     updatedAmount = action.amount
+        updatedAmount = parseInt(action.amount)
     }
     return updateObject( state, {
         ...state,

@@ -52,7 +52,7 @@ input {
 }
 
 .submitButton {
-  border-radius: 18px !important;
+  border-radius: 5px !important;
   border: 2px solid #addeff !important;
   background-color: #addeff !important;
   color: white !important;

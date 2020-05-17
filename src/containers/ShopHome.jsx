@@ -11,8 +11,8 @@ import SignIn from "../components/SignIn/SignIn";
 import Zoomer from "../assets/images/shirts/zoomer.png";
 import Logo from "../assets/images/stickers/SAAS_logo.png";
 import firebase from "../firebase/firebase";
-import { connect } from 'react-redux';
-import * as actions from '../store/actions/index.js';
+import { connect } from "react-redux";
+import * as actions from "../store/actions/index.js";
 const provider = new firebase.auth.GoogleAuthProvider();
 
 class ShopHome extends Component {
@@ -27,7 +27,6 @@ class ShopHome extends Component {
       auth: null,
     };
     firebase.auth().onAuthStateChanged((user) => {
-      //console.log(user);
       this.setState({ auth: user });
     });
 
@@ -60,7 +59,7 @@ class ShopHome extends Component {
   //FOR REDUX
   handleOnPullShopItems = () => {
     this.props.onPullShopItems();
-  }
+  };
 
   pullAdminEmails = () => {
     firebase
@@ -114,8 +113,8 @@ class ShopHome extends Component {
 
   // Function to update the quantity of an item in cart
   onChange = (itemId, direction) => {
-    console.log(this.state.data[itemId])
-    console.log(this.props.itemData.itemID)
+    console.log(this.state.data[itemId]);
+    console.log(this.props.itemData.itemID);
     const cart = this.state.currentCart;
     const currentCart = cart[itemId] ? cart[itemId] : 0;
     const stock = this.state.data[itemId].stock;
@@ -210,7 +209,7 @@ class ShopHome extends Component {
           path="/signin"
           render={() => (
             <SignIn
-            onChange={this.onChange}
+              onChange={this.onChange}
               items={this.props.itemData}
               currentCart={this.state.currentCart}
             />
@@ -237,6 +236,7 @@ class ShopHome extends Component {
               {...props}
               items={this.state.data}
               orders={this.state.orders}
+              auth={this.state.auth}
             />
           )}
         />
@@ -262,16 +262,16 @@ class ShopHome extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    itemData: state.shop.items
-      //authRedirectPath: state.auth.authRedirectPath
+    itemData: state.shop.items,
+    //authRedirectPath: state.auth.authRedirectPath
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onPullShopItems: () => dispatch(actions.pullShopItems())
+    onPullShopItems: () => dispatch(actions.pullShopItems()),
   };
 };
 

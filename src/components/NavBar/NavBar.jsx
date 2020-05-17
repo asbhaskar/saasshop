@@ -35,6 +35,19 @@ class NavBar extends Component {
     }
   };
 
+  renderUser = () => {
+    const { auth, logOut, logIn } = this.props;
+    if (auth) {
+      return (
+        <Link to="/user">
+          <img className="icon" src={UserIcon} alt="user_icon" />
+        </Link>
+      );
+    } else {
+      return <img className="icon" src={UserIcon} alt="user_icon" />;
+    }
+  };
+
   render() {
     const {
       items,
@@ -59,9 +72,7 @@ class NavBar extends Component {
           </div>
           <div className="iconText login">
             {this.renderAuth()}
-            <Link to="/user">
-              <img className="icon" src={UserIcon} alt="user_icon" />
-            </Link>
+            {this.renderUser()}
           </div>
         </div>
       </nav>

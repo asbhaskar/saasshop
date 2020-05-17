@@ -5,12 +5,13 @@ nav {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
   width: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 nav img {
-  width: 90px;
+  width: 70px;
 }
 
 nav h3 a {
@@ -22,9 +23,18 @@ nav h3 a:hover {
   color: #d38abe;
 }
 
+.navRight {
+  display: flex;
+  flex-direction: row;
+}
+
 .iconText {
   display: flex;
   flex-direction: row;
+}
+
+.cart {
+  margin-right: 50px !important;
 }
 
 .navbarText {

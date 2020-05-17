@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Logo from "../../assets/images/logo.png";
+import LogoMerch from "../../assets/images/logo_merch.png";
 import CartIcon from "../../assets/icons/supermarket.svg";
 import UserIcon from "../../assets/icons/user.svg";
 import { HashLink as Link } from "react-router-hash-link";
@@ -14,7 +15,9 @@ class NavBar extends Component {
         <div className="navbarText">
           <div>Welcome, {auth.displayName}</div>
           <p align="right">
-            <Link to="/" onClick={logOut}>Log Out</Link>
+            <Link to="/" onClick={logOut}>
+              Log Out
+            </Link>
           </p>
         </div>
       );
@@ -23,7 +26,9 @@ class NavBar extends Component {
         <div className="navbarText">
           <div>Welcome, SAASie</div>
           <p align="right">
-            <Link to="/" onClick={logIn}>Log In</Link>
+            <Link to="/" onClick={logIn}>
+              Log In
+            </Link>
           </p>
         </div>
       );
@@ -39,26 +44,25 @@ class NavBar extends Component {
     } = this.props;
     return (
       <nav>
-        <a href="http://saas.berkeley.edu">
-          <img src={Logo} alt="saas_logo" />
-        </a>
-        <h3>
-          <Link to="/">MERCH SHOP</Link>
-        </h3>
-        <div className="iconText">
-          <div className="navbarText">
-            <p>Items {calculateNumItems(currentCart, items)}</p>
-            <p>Subtotal ${calculateTotalPrice(currentCart, items)}</p>
+        <Link to="/">
+          <img src={LogoMerch} alt="saas_logo" />
+        </Link>
+        <div className="navRight">
+          <div className="iconText cart">
+            <div className="navbarText">
+              <p>Items {calculateNumItems(currentCart, items)}</p>
+              <p>Subtotal ${calculateTotalPrice(currentCart, items)}</p>
+            </div>
+            <Link to="/cart">
+              <img className="icon" src={CartIcon} alt="cart_icon" />
+            </Link>
           </div>
-          <Link to="/cart">
-            <img className="icon" src={CartIcon} alt="cart_icon" />
-          </Link>
-        </div>
-        <div className="iconText">
-          {this.renderAuth()}
-          <Link to="/user">
-            <img className="icon" src={UserIcon} alt="user_icon" />
-          </Link>
+          <div className="iconText login">
+            {this.renderAuth()}
+            <Link to="/user">
+              <img className="icon" src={UserIcon} alt="user_icon" />
+            </Link>
+          </div>
         </div>
       </nav>
     );

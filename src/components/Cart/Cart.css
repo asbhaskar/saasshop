@@ -69,17 +69,10 @@ input {
   text-decoration: none;
 }
 
-h1 {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px !important;
-}
-
 .alert {
   text-align: center;
   padding: 10px;
-  display: none;
+  display: block;
 }
 
 #emptyCart {

@@ -194,7 +194,7 @@ class Cart extends Component {
                 {/* <button className="submitButton" type="submit">
                   Submit
                 </button> */}
-                <p id="emptyCart center">
+                <p id="emptyCart">
                   Your cart is empty! Please add some items to your cart before
                   submitting.
                 </p>
@@ -205,7 +205,7 @@ class Cart extends Component {
         <div className="alert container">
           <div className="row">
             <div className="col-lg-6">
-              <h1>Your Order Summary</h1>
+              <h2>Your Order Summary</h2>
               <p style={{ textAlign: "right" }}>
                 <strong>SUBTOTAL</strong> $
                 {calculateTotalPrice(currentCart, items)}
@@ -218,7 +218,7 @@ class Cart extends Component {
               )}
             </div>
             <div className="col-lg-5 offset-1">
-              <h1 style={{ color: "#ADDEFF" }}>Thank you!</h1>
+              <h2 style={{ color: "#ADDEFF" }}>Thank you!</h2>
               <p>
                 Your order has been received! We will send you a confirmation
                 email, and you will receive another email when your order is

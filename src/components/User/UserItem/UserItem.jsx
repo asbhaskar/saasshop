@@ -16,7 +16,7 @@ class UserItem extends PureComponent {
             <strong>Payment Method: </strong> {payment_method}
           </span>
           <span>
-            <strong>Order Total: </strong> {total}
+            <strong>Order Total: </strong> ${total}
           </span>
           {Object.keys(items).map((key) => (
             <PurchasedItem

@@ -1,10 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import "./Item.css";
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index.js';
 import {
+  Button,
   IconButton,
   FormControl,
-  FormHelperText,
   InputLabel,
   NativeSelect,
 } from "@material-ui/core";
@@ -13,7 +15,8 @@ import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
 class Item extends PureComponent {
   state = {
-    size: "",
+    amount:0,
+    size: ""
   };
 
   handleChange = (event) => {
@@ -23,17 +26,20 @@ class Item extends PureComponent {
     });
   };
 
+  handleOnAddItem = (e) =>{
+    this.props.onAddItem(this.props.itemId, this.state.size, e.currentTarget.dataset.index)
+  }
+
   render() {
     const { itemId, onChange, item, quantity } = this.props;
     const { description, image_url, sales_price, sizes } = item;
     const itemQuantity = quantity ? quantity : 0;
-    this.sizeOptions = sizes.map((index, key) => (
-      <option value={index}>
-        {index.charAt(0).toUpperCase() + index.slice(1)}{" "}
+    this.sizeOptions = sizes.map((sizes, key) => (
+      <option value={sizes}>
+        {sizes.charAt(0).toUpperCase() + sizes.slice(1)}{" "}
       </option>
     ));
-    console.log(this.props);
-    console.log(sizes);
+
     return (
       <div className="col-lg-4 col-md-6 ">
         <div className={"itemDiv " + this.props.item.category}>
@@ -56,13 +62,6 @@ class Item extends PureComponent {
               {this.sizeOptions}
             </NativeSelect>
           </FormControl>
-          {/* <label htmlFor="size">Size: </label>
-          <select id="size">
-            <option value="small">S</option>
-            <option value="medium">M</option>
-            <option value="large">L</option>
-            <option value="extra_large">XL</option>
-          </select> */}
           <div className="quantity-control">
             <IconButton
               className="circleButton"
@@ -79,13 +78,9 @@ class Item extends PureComponent {
             >
               <AddCircleIcon fontSize="default" />
             </IconButton>
-            {/* <button className="quantity" onClick={() => onChange(itemId, -1)}>
-                -
-              </button>
-              <span style={{ margin: 10 }}>{itemQuantity}</span>
-              <button className="quantity" onClick={() => onChange(itemId, 1)}>
-                +
-              </button> */}
+            <Button variant="outlined" color="primary" onClick={this.handleOnAddItem}  data-index={quantity}>
+              Add to Cart
+            </Button>
           </div>
         </div>
       </div>
@@ -104,4 +99,17 @@ Item.propTypes = {
   quantity: PropTypes.number,
 };
 
-export default Item;
+const mapStateToProps = state => {
+  return {
+      //authRedirectPath: state.auth.authRedirectPath
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddItem: (itemID, size, amount) => dispatch(actions.addItem(itemID, size, amount))
+      //onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/user/home'))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

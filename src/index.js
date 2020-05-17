@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import authReducer from "./store/reducers/auth";
+import shopReducer from "./store/reducers/shop";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import 'typeface-roboto';
@@ -19,6 +20,7 @@ const composeEnhancers =
 
 const appReducer = combineReducers({
   auth: authReducer,
+  shop: shopReducer
 });
 
 const rootReducer = (state, action) => {

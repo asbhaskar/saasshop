@@ -7,6 +7,7 @@ import "./Shop.css";
 import { HashLink as Link } from "react-router-hash-link";
 
 import {
+  Button,
   FormLabel,
   FormControl,
   FormControlLabel,
@@ -35,7 +36,7 @@ class Shop extends Component {
   renderAdminFunction = () => {
     if (this.props.auth) {
       const email = this.props.auth.email;
-      console.log(this.props.adminEmailList, email);
+      //console.log(this.props.adminEmailList, email);
       if (this.props.adminEmailList.includes(email)) {
         return (
           <Link className="inventoryLink" to="/admin">

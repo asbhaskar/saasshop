@@ -14,7 +14,7 @@ class NavBar extends Component {
         <div className="navbarText">
           <div>Welcome, {auth.displayName}</div>
           <p align="right">
-            <Link onClick={logOut}>Log Out</Link>
+            <Link to="/" onClick={logOut}>Log Out</Link>
           </p>
         </div>
       );
@@ -23,7 +23,7 @@ class NavBar extends Component {
         <div className="navbarText">
           <div>Welcome, SAASie</div>
           <p align="right">
-            <Link onClick={logIn}>Log In</Link>
+            <Link to="/" onClick={logIn}>Log In</Link>
           </p>
         </div>
       );

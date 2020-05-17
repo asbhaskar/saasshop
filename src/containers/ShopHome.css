@@ -54,20 +54,20 @@ body {
   }
 }
 
-button {
+/* button {
   border-radius: 18px !important;
   background-color: #addeff;
   color: white;
   border: 2px solid #addeff;
   margin-right: 10px;
-}
-
+} */
+/* 
 button:hover {
   border: 2px solid #addeff;
   background-color: white;
   color: #addeff;
   transition: 0.2s;
-}
+} */
 
 .gradient-divide {
   width: 100%;

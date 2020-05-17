@@ -11,28 +11,15 @@ import SignIn from "../components/SignIn/SignIn";
 import Zoomer from "../assets/images/shirts/zoomer.png";
 import Logo from "../assets/images/stickers/SAAS_logo.png";
 import firebase from "../firebase/firebase";
+import { connect } from 'react-redux';
+import * as actions from '../store/actions/index.js';
 const provider = new firebase.auth.GoogleAuthProvider();
+
 class ShopHome extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [
-        {
-          id: 1,
-          value: 0,
-          name: "DOGDOGDOG",
-          price: 20,
-          image: Zoomer,
-        },
-        {
-          id: 2,
-          value: 0,
-          name: "SAAS Logo",
-          price: 2,
-          image: Logo,
-        },
-      ],
       data: {},
       currentCart: {},
       orders: {},
@@ -40,7 +27,7 @@ class ShopHome extends Component {
       auth: null,
     };
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
+      //console.log(user);
       this.setState({ auth: user });
     });
 
@@ -52,8 +39,10 @@ class ShopHome extends Component {
     this.pullShopItems();
     this.pullPastOrders();
     this.pullAdminEmails();
+    this.handleOnPullShopItems();
   }
 
+  //FOR THIS COMPONENT
   pullShopItems = () => {
     firebase
       .firestore()
@@ -67,6 +56,11 @@ class ShopHome extends Component {
         });
       });
   };
+
+  //FOR REDUX
+  handleOnPullShopItems = () => {
+    this.props.onPullShopItems();
+  }
 
   pullAdminEmails = () => {
     firebase
@@ -120,6 +114,8 @@ class ShopHome extends Component {
 
   // Function to update the quantity of an item in cart
   onChange = (itemId, direction) => {
+    console.log(this.state.data[itemId])
+    console.log(this.props.itemData.itemID)
     const cart = this.state.currentCart;
     const currentCart = cart[itemId] ? cart[itemId] : 0;
     const stock = this.state.data[itemId].stock;
@@ -180,10 +176,13 @@ class ShopHome extends Component {
   };
 
   render() {
+    //bottom two return the same data
+    //console.log(this.props.itemData)
+    //console.log(this.state.data)
     return (
       <React.Fragment>
         <NavBar
-          items={this.state.data}
+          items={this.props.itemData}
           onChange={this.onChange}
           currentCart={this.state.currentCart}
           calculateTotalPrice={this.calculateTotalPrice}
@@ -192,14 +191,14 @@ class ShopHome extends Component {
           logOut={this.logOut}
           auth={this.state.auth}
         />
-        <div class="gradient-divide"></div>
+        <div className="gradient-divide"></div>
         <Route
           exact
           path="/"
           render={(props) => (
             <Shop
-              items={this.state.data}
               onChange={this.onChange}
+              items={this.props.itemData}
               currentCart={this.state.currentCart}
               auth={this.state.auth}
               adminEmailList={this.state.adminEmailList}
@@ -211,8 +210,8 @@ class ShopHome extends Component {
           path="/signin"
           render={() => (
             <SignIn
-              items={this.state.data}
-              onChange={this.onChange}
+            onChange={this.onChange}
+              items={this.props.itemData}
               currentCart={this.state.currentCart}
             />
           )}
@@ -263,4 +262,17 @@ class ShopHome extends Component {
   }
 }
 
-export default ShopHome;
+const mapStateToProps = state => {
+  return {
+    itemData: state.shop.items
+      //authRedirectPath: state.auth.authRedirectPath
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onPullShopItems: () => dispatch(actions.pullShopItems())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopHome);

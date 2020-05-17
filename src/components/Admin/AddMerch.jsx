@@ -18,7 +18,7 @@ class AddMerch extends Component {
       image: null,
       description: "",
       category: "",
-      quanity: 0,
+      quantity: 0,
       price: 0,
       validateForm: {
         image: true,
@@ -50,11 +50,7 @@ class AddMerch extends Component {
     if (!valid) {
       return;
     }
-    this.firebasePush();
-  };
-
-  firebasePush = () => {
-    console.log(this.state);
+    this.props.firebasePush(this.state);
   };
 
   onChange = (type, event) => {

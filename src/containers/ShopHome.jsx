@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import Shop from "../components/Shop/Shop";
 import Cart from "../components/Cart/Cart";
@@ -38,6 +38,7 @@ class ShopHome extends Component {
       orders: {},
       adminEmailList: [],
       auth: null,
+      redirect: "",
     };
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
@@ -92,6 +93,30 @@ class ShopHome extends Component {
           this.setState({ orders });
         });
       });
+  };
+
+  firebasePush = (item) => {
+    console.log(item.image);
+    const ref = firebase.storage().ref();
+    const name = item.description;
+    const newRef = ref.child(name + ".png");
+    newRef.put(item.image).then(() => {
+      newRef.getDownloadURL().then((url) => {
+        console.log(url);
+        const newInventory = {
+          category: item.category,
+          description: item.description,
+          image_url: url,
+          on_order: 0,
+          sales_price: item.price,
+          size_stock: {},
+          sizes: [],
+          stock: item.quantity,
+        };
+
+        firebase.firestore().collection("inventory").add(newInventory);
+      });
+    });
   };
 
   // Function to update the quantity of an item in cart
@@ -156,7 +181,6 @@ class ShopHome extends Component {
   };
 
   render() {
-    console.log(firebase.auth().currentUser);
     return (
       <React.Fragment>
         <NavBar
@@ -229,7 +253,12 @@ class ShopHome extends Component {
           )}
         />
 
-        <Route path="/addmerch" render={(props) => <AddMerch {...props} />} />
+        <Route
+          path="/addmerch"
+          render={(props) => (
+            <AddMerch {...props} firebasePush={this.firebasePush} />
+          )}
+        />
       </React.Fragment>
     );
   }

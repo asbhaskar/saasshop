@@ -59,7 +59,7 @@ class Shop extends Component {
               <div>{this.renderAdminFunction()}</div>
 
               <FormControl className="filterForm" component="fieldset">
-                <FormLabel component="legend">Filter By Category</FormLabel>
+                <FormLabel component="legend" className="legend" >Filter By Category</FormLabel>
                 <RadioGroup
                   aria-label="filter"
                   name="filter"

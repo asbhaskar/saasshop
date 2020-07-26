@@ -64,6 +64,10 @@ html {
   border: none;
 }
 
+.legend{
+  font-size: 48px;
+}
+
 @media screen and (max-width: 992px) {
   .col-lg-2 {
     margin-left: 50px;

@@ -6,7 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import authReducer from "./store/reducers/auth";
 import shopReducer from "./store/reducers/shop";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
@@ -19,7 +18,6 @@ const composeEnhancers =
   compose;
 
 const appReducer = combineReducers({
-  auth: authReducer,
   shop: shopReducer
 });
 
